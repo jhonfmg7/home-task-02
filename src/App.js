@@ -5,7 +5,7 @@ import Counter from "./components/Counter.tsx";
 
 const App = () => {
     return (
-        <div>
+        <div className="container">
             <h1>Hello World!</h1>
             <Counter />
         </div>

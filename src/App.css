@@ -1,4 +1,4 @@
-html {
+body {
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
@@ -12,4 +12,12 @@ html {
 
 .container {
     text-align: center;
+}
+
+.button {
+    margin: 0 10px;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    font-size: 24px;
 }

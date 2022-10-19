@@ -1,17 +1,18 @@
 import * as React from 'react';
 
-interface Count {
-    quantity: number
-}
+type Quantity = number;
 
 const Counter = () => {
 
-    const count: Count = {
-        quantity: 10
-    }
+    // Local State
+    const [ quantity, setQuantity ] = React.useState<Quantity>(0);
 
     return (
-        <div>{ count.quantity }</div>
+        <div>
+            <p>{ quantity }</p>
+            <button type="button" className="button" onClick={ () => setQuantity(quantity - 1) }>-</button>
+            <button type="button" className="button" onClick={ () => setQuantity(quantity + 1) }>+</button>
+        </div>
     )
 }
 

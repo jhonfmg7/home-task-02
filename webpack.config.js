@@ -8,7 +8,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-        template: "public/index.html", 
+            template: "public/index.html", 
         }),
     ],
     devServer: {
@@ -40,6 +40,18 @@ module.exports = {
                 options: { limit: false },
             },
         ],
+    },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    name: "commons",
+                    chunks: "all",
+                    minSize: 0,
+                    minChunks: 2
+                }
+            }
+        }
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],

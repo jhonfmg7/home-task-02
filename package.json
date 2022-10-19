@@ -7,7 +7,7 @@
     "dev": "webpack serve --mode development",
     "prod": "webpack --mode production",
     "prepare": "husky install",
-    "test": "webpack serve --mode development"
+    "test": "git --version"
   },
   "author": "Jhon Mármol",
   "license": "MIT",

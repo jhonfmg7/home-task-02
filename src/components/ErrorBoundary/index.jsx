@@ -22,7 +22,7 @@ class ErrorBoundary extends React.Component {
                 <div>
                     <h2>Something went wrong.</h2>
                     <details style={ styles.error }>
-                        { error && error?.toString() }
+                        { error?.toString() }
                         <br />
                         { errorInfo.componentStack }
                     </details>

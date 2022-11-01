@@ -23,16 +23,14 @@ const Main = () => {
     // Local State
     const [ typeSelected, setTypeSelected ] = useState('all');
     const [ sortBySelected, setSortBySelected ] = useState('date');
-    const [ moviesSelected, setMoviesSelected ] = useState([]);
 
-    useEffect(() => {
-        if (typeSelected === "all") return setMoviesSelected(movies);
-        let filteredMovies = movies.filter( item => {
-            return item.genres.includes(camelCase(typeSelected));
-        } );
-        let sortedMovies = sortedBy(filteredMovies, sortBySelected);
-        setMoviesSelected(sortedMovies);
-    }, [ typeSelected, sortBySelected ]);
+    const getMovies = () => {
+        if (typeSelected === "all") return movies;
+        let filteredMovies = movies.filter( item =>  item.genres.includes(camelCase(typeSelected)));
+        return sortedBy(filteredMovies, sortBySelected);
+    }
+    
+    const moviesSelected = getMovies();
 
     return (
         <main className={ styles.background } data-testid="main">

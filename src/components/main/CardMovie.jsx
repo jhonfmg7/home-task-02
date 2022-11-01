@@ -14,17 +14,7 @@ const CardMovie = ({ movie }) => {
                 <p className={ styles.movieDate }>{ movie.releaseDate.split('/')[0] }</p>
             </div>
             <p className={ styles.genres }>
-                { movie.genres.map( (genre, i) => {
-                    if (movie.genres.length <= 1) {
-                        return `${ genre } `
-                    } else {
-                        if (i === movie.genres.length - 1) {
-                            return `& ${ genre }`
-                        } else {
-                            return `${ genre } `
-                        }
-                    }
-                } ) }
+                { movie.genres.join(' & ') }
             </p>
         </article>
     )

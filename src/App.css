@@ -1,23 +1,18 @@
 body {
     box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400;
+    margin: 0;
+    max-width: 100%;
+    font-family: 'Montserrat';
+    font-style: normal;
+    background-color: #424242;
 }
 
-*,
-*::before,
-*::after {
+  *,
+  *::before,
+  *::after {
     box-sizing: inherit;
 }
 
-.container {
-    text-align: center;
-}
-
-.button {
-    margin: 0 10px;
-    border-radius: 50%;
-    height: 50px;
-    width: 50px;
-    font-size: 24px;
+h1 {
+    margin: 0;
 }

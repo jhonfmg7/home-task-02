@@ -4,11 +4,13 @@ import styles from '../../css-modules/header.module.css';
 // Components
 import Logo from '/src/components/logo/index.jsx';
 import ErrorBoundary from '/src/components/ErrorBoundary/index.jsx';
+import AddOrEditModal from '../modals/AddOrEditModal';
 
 const Header = () => {
 
     // Local State
     const [ inputValue, setInputValue ] = useState('');
+    const [ isOpenModal, setIsOpenModal ] = useState(false);
 
     useEffect(() => {
         if (inputValue.length > 10) {
@@ -17,12 +19,15 @@ const Header = () => {
     }, [ inputValue ]);
 
     return (
-        <header className={ styles.hero } style={{ backgroundImage: 'url(/img/hero.svg)' }} data-testid="header">
+        <header id="header" className={ styles.hero } style={{ backgroundImage: 'url(/img/hero.svg)' }} data-testid="header">
+            { isOpenModal && (
+                <AddOrEditModal title="add" setIsOpen={ setIsOpenModal } />
+            ) }
             <div className={ styles.container }>
                 <a href="#" className={ styles.noTextDecoration }>
                     <Logo />
                 </a>
-                <button className={ styles.mainButton }><span>+ </span>ADD MOVIE</button>
+                <button className={ styles.mainButton } onClick={ () => setIsOpenModal(!isOpenModal) }><span>+ </span>ADD MOVIE</button>
             </div>
             <div className={ styles.finder }>
                 <h1 className={ styles.mainTitle }>FIND YOUR MOVIE</h1>

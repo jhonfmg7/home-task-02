@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import * as React from 'react';
 import styles from '../../css-modules/header.module.css';
 
 // Components
-import Logo from '/src/components/logo/index.jsx';
-import ErrorBoundary from '/src/components/ErrorBoundary/index.jsx';
+import Logo from '../logo';
+import ErrorBoundary from '../ErrorBoundary';
 import AddOrEditModal from '../modals/AddOrEditModal';
 
 const Header = () => {
 
     // Local State
-    const [ inputValue, setInputValue ] = useState('');
-    const [ isOpenModal, setIsOpenModal ] = useState(false);
+    const [ inputValue, setInputValue ] = React.useState('');
+    const [ isOpenModal, setIsOpenModal ] = React.useState(false);
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (inputValue.length > 10) {
             throw new Error('I crashed!');
         }
@@ -27,7 +27,7 @@ const Header = () => {
                 <a href="#" className={ styles.noTextDecoration }>
                     <Logo />
                 </a>
-                <button className={ styles.mainButton } onClick={ () => setIsOpenModal(!isOpenModal) }><span>+ </span>ADD MOVIE</button>
+                <button className={ styles.mainButton } onClick={ (prevState) => setIsOpenModal(!prevState) }><span>+ </span>ADD MOVIE</button>
             </div>
             <div className={ styles.finder }>
                 <h1 className={ styles.mainTitle }>FIND YOUR MOVIE</h1>

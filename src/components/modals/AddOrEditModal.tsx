@@ -4,14 +4,24 @@ import * as React from 'react';
 import Modal from './Modal';
 import AddOrEditForm from './AddOrEditMovieForm';
 
-interface Props {
-    title: String,
-    movieInfo?: Object,
-    setIsOpen: Function,
-    setIsOpenMenu?: Function
+interface Movie {
+    title: string,
+    date: string,
+    url: string,
+    rating: number,
+    genre: string | Array<string>,
+    runtime: number,
+    overview: string
 }
 
-const AddOrEditModal: React.FunctionComponent = (props: Props) => {
+interface Props {
+    title: string,
+    movieInfo?: Movie,
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    setIsOpenMenu?: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const AddOrEditModal = (props: Props) => {
 
     // Props Extraction
     const { title, movieInfo, setIsOpen, setIsOpenMenu } = props;

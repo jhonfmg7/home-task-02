@@ -6,17 +6,17 @@ import stylesHeader from '../../../css-modules/header.module.css';
 import Input from './Input';
 
 interface InitialState {
-    title: String,
-    date: String,
-    url: String,
-    rating: Number,
-    genre: String,
-    runtime: Number,
+    title: string,
+    date: string,
+    url: string,
+    rating: number,
+    genre:  string | Array<string>,
+    runtime: number,
     overview: string
 }
 
 interface Props {
-    movie?: any
+    movie?: InitialState
 }
 
 const AddOrEditForm = (props: Props) => {
@@ -37,22 +37,14 @@ const AddOrEditForm = (props: Props) => {
     }
     const [ info, setInfo ] = React.useState(initialState);
 
-    const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        setInfo( oldValue => ({ ...oldValue, [ e.target.name ]: e.target.value }));
-    }
-
-    const handleChangeTextArea = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
+    const handleChange = (e:React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
         setInfo( oldValue => ({ ...oldValue, [ e.target.name ]: e.target.value }));
     }
 
     const handleReset = () => setInfo(initialState);
 
     React.useEffect(() => {
-        if (movie) {
-            setInfo(movie)
-        } else {
-            setInfo(initialState);
-        }
+        setInfo(movie ?? initialState);
     }, [ movie ]);
 
     return (
@@ -65,7 +57,7 @@ const AddOrEditForm = (props: Props) => {
             <Input isLarge={ false } id="runtime" title="Runtime" info={ info } value="runtime" type="text" placeholder="minutes" handleChange={ handleChange } />
             <div className={ styles.inputGroupExtraLarge }>
                 <label htmlFor="overview" className={ styles.label }>Overview</label><br />
-                <textarea id="overview" cols={ 30 } rows={ 10 } name="overview" placeholder="Movie Description" className={ styles.input } value={ info["overview"] } onChange={ handleChangeTextArea }></textarea>
+                <textarea id="overview" cols={ 30 } rows={ 10 } name="overview" placeholder="Movie Description" className={ styles.input } value={ info["overview"] } onChange={ handleChange }></textarea>
             </div>
             <div className={ styles.textEnd }>
                 <button className={ styles.secondaryButton } type="button" onClick={ handleReset }>Reset</button>

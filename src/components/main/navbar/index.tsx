@@ -1,15 +1,24 @@
-import React from 'react';
+import * as React from 'react';
 import styles from '../../../css-modules/main.module.css';
 
-// Prop Types
-import PropTypes from 'prop-types';
+// Utils
 import camelCase from '../../../utils/camelCase';
 
 const CATEGORIES = [ 'all', 'action', 'documentary', 'comedy', 'horror', 'crime' ];
 
-const NavBar = ({ typeSelected, setTypeSelected, sortBySelected, setSortBySelected }) => {
+interface Props {
+    typeSelected: string, 
+    sortBySelected: string,
+    setTypeSelected: React.Dispatch<React.SetStateAction<string>>,
+    setSortBySelected: React.Dispatch<React.SetStateAction<string>>
+}
 
-    const changeItemSelected = (type) => {
+const NavBar = (props: Props) => {
+
+    // Props Extraction
+    const { typeSelected, setTypeSelected, sortBySelected, setSortBySelected } = props;
+
+    const changeItemSelected = (type: string) => {
         setTypeSelected(type)
     }
 
@@ -23,7 +32,7 @@ const NavBar = ({ typeSelected, setTypeSelected, sortBySelected, setSortBySelect
             <div className={ styles.sortBySelect }>
                 <p className={ styles.secondaryText }>Sort by</p>
                 <div className={ styles.selectContainer }>
-                    <select className={ styles.selectInput } value={ sortBySelected } onChange={ e => setSortBySelected(e.target.value) }>
+                    <select className={ styles.selectInput } value={ sortBySelected } onChange={ (e: React.ChangeEvent<HTMLSelectElement>) => setSortBySelected(e.target.value) }>
                         <option value="date">Release Date</option>
                         <option value="rating">Rating</option>
                         <option value="runtime">Runtime</option>
@@ -34,13 +43,6 @@ const NavBar = ({ typeSelected, setTypeSelected, sortBySelected, setSortBySelect
             <div className={ styles.grayStrike }></div>
         </nav>
     )
-}
-
-NavBar.propTypes = {
-    typeSelected: PropTypes.string.isRequired, 
-    setTypeSelected: PropTypes.func.isRequired, 
-    sortBySelected: PropTypes.string.isRequired, 
-    setSortBySelected: PropTypes.func.isRequired, 
 }
 
 export default NavBar;

@@ -3,7 +3,7 @@ import styles from '../../css-modules/modal.module.css';
 import stylesHeader from '../../css-modules/header.module.css';
 
 // Components
-import Logo from '../logo/index.jsx';
+import Logo from '../logo';
 
 // Utils
 import timeConverter from '../../utils/timeConverter';
@@ -12,18 +12,18 @@ interface Movie {
     image: string,
     title: string,
     rating: number,
-    genres: Array<String>,
+    genres?: Array<string>,
     releaseDate: string, 
     runtime: number,
     overview: string
 }
 
 interface Props {
-    movie: Movie,
-    setIsOpen: Function
+    movie?: Movie,
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const MoreInfoMovie: React.FunctionComponent = (props: Props) => {
+const MoreInfoMovie = (props: Props) => {
 
     // Props Extraction
     const { movie, setIsOpen } = props;

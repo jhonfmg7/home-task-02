@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import * as React from 'react';
 import styles from '../../css-modules/main.module.css';
 
 // Components
@@ -7,16 +7,31 @@ import DeleteModal from '../modals/DeleteModal';
 import AddOrEditModal from '../modals/AddOrEditModal';
 import MoreInfoMovie from '../modals/MoreInfoMovie';
 
-// Prop Types
-import PropTypes from 'prop-types';
+interface Movie {
+    image: string,
+    title: string,
+    rating: number,
+    genres: Array<string>,
+    releaseDate: string, 
+    runtime: number,
+    overview: string, 
+    movieUrl: string,
+}
 
-const CardMovie = ({ movie }) => {
+interface Props {
+    movie: Movie
+}
+
+const CardMovie = (props: Props) => {
+
+    // Props Extraction
+    const { movie } = props;
 
     // Local State 
-    const [ isOpenMenu, setIsOpenMenu ] = useState(false);
-    const [ isOpenMoreInfoModal, setIsOpenMoreInfoModal ] = useState(false);
-    const [ isOpenDeleteModal, setIsOpenDeleteModal ] = useState(false);
-    const [ isOpenEditModal, setIsOpenEditModal ] = useState(false);
+    const [ isOpenMenu, setIsOpenMenu ] = React.useState(false);
+    const [ isOpenMoreInfoModal, setIsOpenMoreInfoModal ] = React.useState(false);
+    const [ isOpenDeleteModal, setIsOpenDeleteModal ] = React.useState(false);
+    const [ isOpenEditModal, setIsOpenEditModal ] = React.useState(false);
 
     return (
         <>
@@ -36,7 +51,7 @@ const CardMovie = ({ movie }) => {
                         date: movie.releaseDate,
                         url: movie.movieUrl,
                         rating: movie.rating,
-                        genre: movie.genre,
+                        genre: movie.genres,
                         runtime: movie.runtime,
                         overview: movie.overview
                     }} 
@@ -44,7 +59,7 @@ const CardMovie = ({ movie }) => {
             ) }
             <article className={ styles.movieItem }>
                 <div className={ styles.menuContainer }>
-                    <div className={ styles.menuButton } onClick={ () => setIsOpenMenu(!isOpenMenu) }>...</div>
+                    <div className={ styles.menuButton } onClick={ (prevState) => setIsOpenMenu(!prevState) }>...</div>
                     { isOpenMenu && (
                         <MovieMenu setIsOpen={ setIsOpenMenu } setIsOpenDeleteModal={ setIsOpenDeleteModal } setIsOpenEditModal={ setIsOpenEditModal } />
                     ) }
@@ -60,10 +75,6 @@ const CardMovie = ({ movie }) => {
             </article>
         </>
     )
-}
-
-CardMovie.propTypes = {
-    movie: PropTypes.object.isRequired
 }
 
 export default CardMovie

@@ -6,12 +6,12 @@ import stylesHeader from '../../css-modules/header.module.css';
 import Modal from './Modal';
 
 interface Props {
-    title: String,
-    setIsOpen: Function,
-    setIsOpenMenu?: Function
+    title: string,
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    setIsOpenMenu?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const DeleteModal: React.FunctionComponent = (props: Props) => {
+const DeleteModal = (props: Props) => {
 
     // Props Extraction
     const { title, setIsOpen, setIsOpenMenu } = props; 

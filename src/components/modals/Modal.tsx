@@ -3,9 +3,9 @@ import styles from '../../css-modules/modal.module.css';
 
 interface Props {
     children: React.ReactNode,
-    title: String,
-    setIsOpen: Function, 
-    setIsOpenMenu: Function
+    title: string,
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>, 
+    setIsOpenMenu: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const Modal: React.FunctionComponent<React.PropsWithChildren<Props>> = (props: Props) => {

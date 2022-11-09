@@ -3,12 +3,12 @@ import styles from '../../../css-modules/main.module.css';
 import stylesModal from '../../../css-modules/modal.module.css';
 
 interface Props {
-    setIsOpen: Function,
-    setIsOpenDeleteModal: Function,
-    setIsOpenEditModal: Function
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    setIsOpenDeleteModal: React.Dispatch<React.SetStateAction<boolean>>,
+    setIsOpenEditModal: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const MovieMenu: React.FunctionComponent = (props: Props) => {
+const MovieMenu = (props: Props) => {
 
     // Props Extractions
     const { setIsOpen, setIsOpenDeleteModal, setIsOpenEditModal } = props;

@@ -1,17 +1,28 @@
-import React from 'react';
+import * as React from 'react';
 import styles from '../../css-modules/error.module.css';
 
-class ErrorBoundary extends React.Component {
-    constructor(props) {
+interface Props {
+    children?: React.ReactNode;
+}
+
+type State = {
+    hasError: boolean,
+    error: object,
+    errorInfo: React.ErrorInfo
+}
+
+
+class ErrorBoundary extends React.Component<Props, State> {
+    constructor(props: Props) {
         super(props);
         this.state = { hasError: false, error: null, errorInfo: null };
     }
 
-    static getDerivedStateFromError(error) {
+    static getDerivedStateFromError(error: Error) {
         return { hasError: true };
     }
     
-    componentDidCatch(error, errorInfo) {
+    componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
         this.setState({ error, errorInfo })
     }
     

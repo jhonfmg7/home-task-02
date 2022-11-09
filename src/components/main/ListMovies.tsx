@@ -1,14 +1,28 @@
-import React from 'react';
+import * as React from 'react';
 import styles from '../../css-modules/main.module.css';
 
-// Prop Types
-import PropTypes from 'prop-types';
-
 // Components
-import CardMovie from '/src/components/main/CardMovie.jsx';
+import CardMovie from './CardMovie';
 
+interface Movie {
+    image: string,
+    title: string,
+    rating: number,
+    genres: Array<string>,
+    releaseDate: string, 
+    runtime: number,
+    overview: string, 
+    movieUrl: string,
+}
 
-const ListMovies = ({ moviesSelected }) => {
+interface Props {
+    moviesSelected: Array<Movie>
+}
+
+const ListMovies = (props: Props) => {
+
+    // Props Extraction
+    const { moviesSelected } = props;
 
     return (
         <section className={ styles.moviesContainer }>
@@ -21,10 +35,6 @@ const ListMovies = ({ moviesSelected }) => {
             ) }
         </section>
     )
-}
-
-ListMovies.propTypes = {
-    moviesSelected: PropTypes.array.isRequired
 }
 
 export default ListMovies

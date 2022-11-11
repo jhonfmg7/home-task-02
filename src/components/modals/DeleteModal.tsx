@@ -1,29 +1,23 @@
-import * as React from 'react';
-import styles from '../../css-modules/modal.module.css';
-import stylesHeader from '../../css-modules/header.module.css';
+import * as React from "react";
+import styles from "../../css-modules/modal.module.css";
+import stylesHeader from "../../css-modules/header.module.css";
 
 // Components
-import Modal from './Modal';
+import Modal from "./Modal";
 
 interface Props {
     title: string,
-    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
-    setIsOpenMenu?: React.Dispatch<React.SetStateAction<boolean>>
+    setIsOpen: (newState: boolean) => void,
+    setIsOpenMenu?: (newState: boolean) => void
 }
 
-const DeleteModal = (props: Props) => {
+const DeleteModal: React.FC<Props> = ({ title, setIsOpen, setIsOpenMenu }) => (
+  <Modal title={title} setIsOpen={setIsOpen} setIsOpenMenu={setIsOpenMenu}>
+    <p className={styles.deleteMessage}>Are you sure you want to delete this movie?</p>
+    <div className={styles.textEnd}>
+      <button className={stylesHeader.secondaryButton}>Confirm</button>
+    </div>
+  </Modal>
+);
 
-    // Props Extraction
-    const { title, setIsOpen, setIsOpenMenu } = props; 
-    
-    return (
-        <Modal title={ title } setIsOpen={ setIsOpen } setIsOpenMenu={ setIsOpenMenu }>
-            <p className={ styles.deleteMessage }>Are you sure you want to delete this movie?</p>
-            <div className={ styles.textEnd }>
-                <button className={ stylesHeader.secondaryButton }>Confirm</button>
-            </div>
-        </Modal>
-    )
-}
-
-export default DeleteModal
+export default DeleteModal;

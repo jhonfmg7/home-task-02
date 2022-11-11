@@ -1,29 +1,28 @@
-import * as React from 'react';
-import styles from '../../../css-modules/main.module.css';
-import stylesModal from '../../../css-modules/modal.module.css';
+import * as React from "react";
+import styles from "../../../css-modules/main.module.css";
+import stylesModal from "../../../css-modules/modal.module.css";
 
 interface Props {
-    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
-    setIsOpenDeleteModal: React.Dispatch<React.SetStateAction<boolean>>,
-    setIsOpenEditModal: React.Dispatch<React.SetStateAction<boolean>>
+    setIsOpen: (newState: boolean) => void,
+    setIsOpenDeleteModal: (newState: boolean) => void,
+    setIsOpenEditModal: (newState: boolean) => void
 }
 
-const MovieMenu = (props: Props) => {
+function MovieMenu(props: Props) {
+  // Props Extractions
+  const { setIsOpen, setIsOpenDeleteModal, setIsOpenEditModal } = props;
 
-    // Props Extractions
-    const { setIsOpen, setIsOpenDeleteModal, setIsOpenEditModal } = props;
-
-    return (
-        <div className={ styles.movieMenu }>
-            <div className={ stylesModal.closeIcon }>
-                <h2 className={ stylesModal.icon } onClick={ () => setIsOpen(false) }>x</h2>
-            </div>
-            <ul className={ styles.menuItems }>
-                <li className={ styles.menuItem } onClick={ () => setIsOpenEditModal(true) }>Edit</li>
-                <li className={ styles.menuItem } onClick={ () => setIsOpenDeleteModal(true) }>Delete</li>
-            </ul>
-        </div>
-    )
+  return (
+    <div className={styles.movieMenu}>
+      <div className={stylesModal.closeIcon}>
+        <h2 className={stylesModal.icon} onClick={() => setIsOpen(false)}>x</h2>
+      </div>
+      <ul className={styles.menuItems}>
+        <li className={styles.menuItem} onClick={() => setIsOpenEditModal(true)}>Edit</li>
+        <li className={styles.menuItem} onClick={() => setIsOpenDeleteModal(true)}>Delete</li>
+      </ul>
+    </div>
+  );
 }
 
 export default MovieMenu;

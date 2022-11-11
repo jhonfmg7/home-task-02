@@ -8,16 +8,6 @@ import Input from "./Input";
 // Types
 import Movie from "../../../types/movie.interface";
 
-interface InitialState {
-    title: string,
-    date: string,
-    url: string,
-    rating: number,
-    genre: string | string[],
-    runtime: number,
-    overview: string
-}
-
 interface Props {
     movie?: Movie
 }
@@ -27,7 +17,7 @@ function AddOrEditForm(props: Props) {
   const { movie } = props;
 
   // Local State
-  const initialState: InitialState = {
+  const initialState: Movie = {
     title: "",
     date: "",
     url: "",

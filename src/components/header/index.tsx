@@ -1,32 +1,39 @@
 import * as React from "react";
 import styles from "../../css-modules/header.module.css";
 
+// Context
+import AppContext from "../../context/AppContext";
+
 // Components
 import Logo from "../logo";
 import ErrorBoundary from "../ErrorBoundary";
 import AddOrEditModal from "../modals/AddOrEditModal";
+import MoreInfoMovie from "../modals/MoreInfoMovie";
+import useThrowError from "../../hooks/useThrowError";
 
 function Header() {
+  // Context Extraction
+  const { movieSelected, isOpenMoreInfoModal, setIsOpenMoreInfoModal } = React.useContext(AppContext);
+
   // Local State
   const [inputValue, setInputValue] = React.useState("");
   const [isOpenModal, setIsOpenModal] = React.useState(false);
 
-  React.useEffect(() => {
-    if (inputValue.length > 10) {
-      throw new Error("I crashed!");
-    }
-  }, [inputValue]);
+  useThrowError({ inputValue });
 
   return (
     <header id="header" className={styles.hero} style={{ backgroundImage: "url(/img/hero.svg)" }} data-testid="header">
       { isOpenModal && (
         <AddOrEditModal title="add" setIsOpen={setIsOpenModal} />
       ) }
+      { isOpenMoreInfoModal && (
+        <MoreInfoMovie movie={movieSelected} setIsOpen={setIsOpenMoreInfoModal} />
+      ) }
       <div className={styles.container}>
         <a href="#" className={styles.noTextDecoration}>
           <Logo />
         </a>
-        <button className={styles.mainButton} onClick={(prevState) => setIsOpenModal(!prevState)}>
+        <button className={styles.mainButton} onClick={() => setIsOpenModal((prevState) => !prevState)}>
           <span>+ </span>
           ADD MOVIE
         </button>

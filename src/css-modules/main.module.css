@@ -109,12 +109,41 @@
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    padding: 20px 90px;
+    padding: 0px 90px 20px 90px;
 }
 
 .movieItem {
     flex-basis: calc(33% - 40px);
     margin: 20px 20px;
+    transition: all 2s ease;
+}
+
+@media (min-width: 1000px) {
+    .movieItem {
+        flex-basis: calc(25% - 40px);
+    }
+}
+
+.movieItem:hover .menuButton {
+    display: flex;
+    transition: all 2s ease;
+}
+
+.movieImage {
+    cursor: pointer;
+}
+
+.moviesQuantity {
+    padding: 0px 120px;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 24px;
+    color: #FFFFFF;
+}
+
+.moviesQuantityComplement {
+    font-weight: 600;
 }
 
 .titleContainer {
@@ -149,4 +178,67 @@
     color: #FFFFFF;
     mix-blend-mode: normal;
     opacity: 0.5;
+}
+
+.menuContainer {
+    position: relative;
+}
+
+.menuButton {
+    position: absolute;
+    top: 10px;
+    right: 5%;
+    color: #fff;
+    background: #2A202D;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.196596);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    writing-mode: vertical-lr;
+    font-size: 30px;
+    padding: 0 0 0px 17px;
+    cursor: pointer;
+    display: none;
+    transition: all 2s ease;
+}
+
+.menuButton:hover {
+    background: #181219;
+}
+
+.movieMenu {
+    position: absolute;
+    top: 10px;
+    right: 10%;
+    z-index: 1;
+    background: rgba(35, 35, 35, 0.918051);
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1), 0px 2px 10px rgba(0, 0, 0, 0.1), 0px 10px 20px rgba(0, 0, 0, 0.1), 0px 10px 50px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(13.5914px);
+    border-radius: 4px;
+    width: 50%;
+    /* padding: 10px 20px; */
+}
+
+
+.menuItems {
+    list-style: none;
+    margin: 10px 0 0 0;
+    padding: 0;
+}
+
+.menuItem {
+    width: 100%;
+    color: #fff;
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: all .5s ease;
+}
+
+.menuItem:hover {
+    background: #F65261;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1), 0px 10px 20px rgba(0, 0, 0, 0.1), 0px 10px 50px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(13.5914px);
 }

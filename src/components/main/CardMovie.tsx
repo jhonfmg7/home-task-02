@@ -36,7 +36,7 @@ function CardMovie(props: Props) {
   const [isOpenDeleteModal, setIsOpenDeleteModal] = React.useState(false);
   const [isOpenEditModal, setIsOpenEditModal] = React.useState(false);
 
-  const selectAMovie = React.useCallback((movie: Movie) => {
+  const selectMovie = React.useCallback((movie: Movie) => {
     setIsOpenMoreInfoModal(true);
     setMovieSelected(movie);
   }, [movie]);
@@ -69,7 +69,7 @@ function CardMovie(props: Props) {
             <MovieMenu setIsOpen={setIsOpenMenu} setIsOpenDeleteModal={setIsOpenDeleteModal} setIsOpenEditModal={setIsOpenEditModal} />
           ) }
         </div>
-        <img src={movie.image} alt={`${movie.title}.png`} className={styles.movieImage} onClick={() => selectAMovie(movie)} />
+        <img src={movie.image} alt={`${movie.title}.png`} className={styles.movieImage} onClick={() => selectMovie(movie)} />
         <div className={styles.titleContainer}>
           <p className={styles.movieTitle}>{ movie.title }</p>
           <p className={styles.movieDate}>{ movie.releaseDate.split("-")[0] }</p>

@@ -38,7 +38,11 @@ const MoreInfoMovie: React.FC<Props> = ({ movie, setIsOpen }) => {
           <Logo />
         </a>
         <div className={styles.closeIcon}>
-          <h2 className={styles.icon} onClick={handleClose}>X</h2>
+          <h2 className={styles.iconAlternative} onClick={handleClose}>
+            <span className="material-symbols-outlined">
+              search
+            </span>
+          </h2>
         </div>
       </div>
       <div className={stylesHeader.container}>

@@ -44,6 +44,16 @@
     margin-right: 15px;
 }
 
+.iconAlternative {
+    width: 10%;
+    cursor: pointer;
+    font-weight: 300;
+    letter-spacing: 1px;
+    text-align: end;
+    margin-right: 15px;
+    color: #F65261;
+}
+
 .form {
     display: flex;
     justify-content: flex-start;
@@ -152,6 +162,7 @@
     background: #232323;
     transition: all .6s ease;
     padding: 50px 90px;
+    z-index: 2;
 }
 
 .movieImageContainer {

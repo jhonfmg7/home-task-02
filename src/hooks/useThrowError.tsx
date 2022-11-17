@@ -18,4 +18,4 @@ const useThrowError = (props: Props) => {
     return; 
 }
 
-export default useThrowError
+export default useThrowError;

@@ -8,7 +8,6 @@ function Loader() {
       <br />
       <br />
       <br />
-
     </>
   );
 }

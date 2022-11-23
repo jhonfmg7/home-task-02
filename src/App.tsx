@@ -14,7 +14,6 @@ import Footer from './components/footer';
 import ErrorBoundary from './components/ErrorBoundary';
 
 function App() {
-
   // Local State
   const [movieSelected, setMovieSelected] = React.useState({
     id: 0,

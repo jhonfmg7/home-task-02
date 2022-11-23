@@ -29,12 +29,12 @@ class ErrorBoundary extends React.Component<Props, State> {
     const { hasError, error, errorInfo } = this.state;
     if (hasError) {
       return (
-        <div>
+        <div className={ styles.errorContainer }>
           <h2>Something went wrong.</h2>
-          <details style={styles.error}>
+          <details className={styles.error}>
             { error?.toString() }
             <br />
-            { errorInfo.componentStack }
+            { errorInfo?.componentStack }
           </details>
         </div>
       );

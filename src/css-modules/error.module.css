@@ -1,3 +1,8 @@
+.errorContainer {
+    margin-top: 20%;
+    text-align: center;
+    color: white;
+}
 .error {
     white-space: 'pre-wrap';
 }

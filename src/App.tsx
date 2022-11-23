@@ -17,13 +17,20 @@ function App() {
 
   // Local State
   const [movieSelected, setMovieSelected] = React.useState({
-    image: "",
+    id: 0,
     title: "",
-    rating: 0,
+    date: "",
+    url: "",
     genres: [],
-    releaseDate: "",
     runtime: 0,
-    overview: ""
+    overview: "",
+    poster_path: "",
+    tagline: "",
+    vote_average: 0,
+    vote_count: 0,
+    release_date: "",
+    budget: 0,
+    revenue: 0
   });
   const [isOpenMoreInfoModal, setIsOpenMoreInfoModal] = React.useState(false);
 

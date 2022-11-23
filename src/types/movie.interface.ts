@@ -1,11 +1,17 @@
 interface Movie {
+    id: number,
     title: string,
-    date: string,
     url: string,
-    rating: number,
-    genre: string | string[],
+    genres?: string[],
     runtime: number,
-    overview: string
+    overview: string,
+    poster_path: string,
+    tagline: string,
+    vote_average: number,
+    vote_count: number,
+    release_date: string,
+    budget: number,
+    revenue: number
 }
 
 export default Movie;

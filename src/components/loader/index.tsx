@@ -3,12 +3,7 @@ import styles from "../../css-modules/loader.module.css";
 
 function Loader() {
   return (
-    <>
-      <div className={styles.spinner} />
-      <br />
-      <br />
-      <br />
-    </>
+    <div className={styles.spinner} />
   );
 }
 

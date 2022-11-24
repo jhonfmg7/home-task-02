@@ -2,14 +2,17 @@ import { AppDispatch } from "../../types/redux.interface";
 import Movie from "../../types/movie.interface";
 import { GET_MOVIES_ERROR, GET_MOVIES_START, GET_MOVIES_SUCCESS } from "../types";
 
-const BACKEND_URL = "http://localhost:4000/movies?";
+const BACKEND_URL = "http://localhost:4000/movies";
+const MOVIES_PER_PAGE = "9";
+const SORT_ORDER = "desc";
 
 export function getAllMoviesAction(numPage: number, sortBy: string) {
     return async(dispatch: AppDispatch) => {
         dispatch(getAllMoviesStart());
 
         try {
-            const response = await fetch(`${ BACKEND_URL }limit=9&offset=${ numPage }&sortBy=${ sortBy }&sortOrder=desc`);
+            const searchParams = new URLSearchParams({ limit: MOVIES_PER_PAGE, offset: numPage.toString(), sortBy, sortOrder: SORT_ORDER });
+            const response = await fetch(`${ BACKEND_URL }?${searchParams.toString()}`);
             const data = await response.json();
 
             if (response.status === 200) {
@@ -26,7 +29,8 @@ export function getAllMoviesByGenreAction(numPage: number, genre: string, sortBy
         dispatch(getAllMoviesStart());
 
         try {
-            const response = await fetch(`${ BACKEND_URL }limit=9&offset=${ numPage }&sortBy=${ sortBy }&sortOrder=desc&filter=${ genre }`);
+            const searchParams = new URLSearchParams({ limit: MOVIES_PER_PAGE, offset: numPage.toString(), sortBy, sortOrder: SORT_ORDER, filter: genre });
+            const response = await fetch(`${ BACKEND_URL }?${searchParams.toString()}`);
             const data = await response.json();
 
             if (response.status === 200) {

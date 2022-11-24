@@ -4,14 +4,14 @@ import { useSelector } from 'react-redux';
 // Interface
 import { RootState } from '../types/redux.interface';
 
-type Error = {
-    error: Error | any
+type ErrorType = {
+    error: string
 }
 
 const useThrowError = () => {
 
     // Redux State Extraction
-    const { error } = useSelector<RootState, Error>( state => state.movies );
+    const { error } = useSelector<RootState, ErrorType>( state => state.movies );
 
     React.useEffect(() => {
         if (error) {

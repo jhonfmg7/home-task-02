@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { Provider } from 'react-redux';
 
+// Interface
+import Movie from './types/movie.interface';
+
 // Store
 import store from './redux/store';
 
@@ -15,22 +18,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 
 function App() {
   // Local State
-  const [movieSelected, setMovieSelected] = React.useState({
-    id: 0,
-    title: "",
-    date: "",
-    url: "",
-    genres: [],
-    runtime: 0,
-    overview: "",
-    poster_path: "",
-    tagline: "",
-    vote_average: 0,
-    vote_count: 0,
-    release_date: "",
-    budget: 0,
-    revenue: 0
-  });
+  const [movieSelected, setMovieSelected] = React.useState<Movie | null>(null);
   const [isOpenMoreInfoModal, setIsOpenMoreInfoModal] = React.useState(false);
 
   return (

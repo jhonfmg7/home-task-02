@@ -33,9 +33,9 @@ function Main() {
 
   React.useEffect(() => {
     if (typeSelected === "all") {
-      dispatch(getAllMoviesAction(0, sortBySelected));
+      dispatch(getAllMoviesAction("0", sortBySelected));
     } else {
-      dispatch(getAllMoviesByGenreAction(0, typeSelected, sortBySelected));
+      dispatch(getAllMoviesByGenreAction("0", typeSelected, sortBySelected));
     }
   }, [typeSelected, sortBySelected]);
 

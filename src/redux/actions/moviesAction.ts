@@ -6,13 +6,13 @@ const BACKEND_URL = "http://localhost:4000/movies";
 const MOVIES_PER_PAGE = "9";
 const SORT_ORDER = "desc";
 
-export function getAllMoviesAction(numPage: number, sortBy: string) {
+export function getAllMoviesAction(numPage: string, sortBy: string) {
     return async(dispatch: AppDispatch) => {
         dispatch(getAllMoviesStart());
 
         try {
-            const searchParams = new URLSearchParams({ limit: MOVIES_PER_PAGE, offset: numPage.toString(), sortBy, sortOrder: SORT_ORDER });
-            const response = await fetch(`${ BACKEND_URL }?${searchParams.toString()}`);
+            const searchParams = new URLSearchParams({ limit: MOVIES_PER_PAGE, offset: numPage, sortBy, sortOrder: SORT_ORDER });
+            const response = await fetch(`${ BACKEND_URL }?${searchParams}`);
             const data = await response.json();
 
             if (response.status === 200) {
@@ -24,13 +24,13 @@ export function getAllMoviesAction(numPage: number, sortBy: string) {
     }
 }
 
-export function getAllMoviesByGenreAction(numPage: number, genre: string, sortBy: string) {
+export function getAllMoviesByGenreAction(numPage: string, genre: string, sortBy: string) {
     return async(dispatch: AppDispatch) => {
         dispatch(getAllMoviesStart());
 
         try {
-            const searchParams = new URLSearchParams({ limit: MOVIES_PER_PAGE, offset: numPage.toString(), sortBy, sortOrder: SORT_ORDER, filter: genre });
-            const response = await fetch(`${ BACKEND_URL }?${searchParams.toString()}`);
+            const searchParams = new URLSearchParams({ limit: MOVIES_PER_PAGE, offset: numPage, sortBy, sortOrder: SORT_ORDER, filter: genre });
+            const response = await fetch(`${ BACKEND_URL }?${searchParams}`);
             const data = await response.json();
 
             if (response.status === 200) {

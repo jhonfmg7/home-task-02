@@ -18,13 +18,19 @@ function AddOrEditForm(props: Props) {
 
   // Local State
   const initialState: Movie = {
+    id: 0,
     title: "",
-    date: "",
     url: "",
-    rating: 0,
-    genre: "",
+    genres: [],
     runtime: 0,
     overview: "",
+    poster_path: "",
+    tagline: "",
+    vote_average: 0,
+    vote_count: 0,
+    release_date: "",
+    budget: 0,
+    revenue: 0,
 
   };
   const [info, setInfo] = React.useState(initialState);
@@ -42,9 +48,9 @@ function AddOrEditForm(props: Props) {
   return (
     <form className={styles.form}>
       <Input isLarge id="title" title="Title" info={info} value="title" type="text" placeholder="Title" handleChange={handleChange} />
-      <Input isLarge={false} id="date" title="Release Date" info={info} value="date" type="date" placeholder="Select Date" handleChange={handleChange} />
+      <Input isLarge={false} id="date" title="Release Date" info={info} value="release_date" type="date" placeholder="Select Date" handleChange={handleChange} />
       <Input isLarge id="url" title="Movie URL" info={info} value="url" type="text" placeholder="https://" handleChange={handleChange} />
-      <Input isLarge={false} id="rating" title="Rating" info={info} value="rating" type="number" placeholder="7.8" handleChange={handleChange} />
+      <Input isLarge={false} id="rating" title="Rating" info={info} value="vote_average" type="number" placeholder="7.8" handleChange={handleChange} />
       <Input isLarge id="genre" title="Genre" info={info} value="genre" type="text" placeholder="Select Genre" handleChange={handleChange} />
       <Input isLarge={false} id="runtime" title="Runtime" info={info} value="runtime" type="text" placeholder="minutes" handleChange={handleChange} />
       <div className={styles.inputGroupExtraLarge}>

@@ -34,8 +34,8 @@ function NavBar(props: Props) {
         <p className={styles.secondaryText}>Sort by</p>
         <div className={styles.selectContainer}>
           <select className={styles.selectInput} value={sortBySelected} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSortBySelected(e.target.value)}>
-            <option value="date">Release Date</option>
-            <option value="rating">Rating</option>
+            <option value="release_date">Release Date</option>
+            <option value="vote_average">Rating</option>
             <option value="runtime">Runtime</option>
           </select>
           <div className={styles.selectInputRow} />

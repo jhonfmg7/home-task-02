@@ -1,6 +1,7 @@
 .background {
     background-color: #232323;
     margin: 0;
+    padding-bottom: 100px;
 }
 
 .navbar {
@@ -116,12 +117,18 @@
     flex-basis: calc(33% - 40px);
     margin: 20px 20px;
     transition: all 2s ease;
+    animation: entry 2s;
 }
 
 @media (min-width: 1000px) {
     .movieItem {
         flex-basis: calc(25% - 40px);
     }
+}
+
+@keyframes entry {
+    from { opacity: 0; }
+    to { opacity: 1;}
 }
 
 .movieItem:hover .menuButton {

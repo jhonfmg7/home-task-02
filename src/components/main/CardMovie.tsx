@@ -1,6 +1,9 @@
 import * as React from "react";
 import styles from "../../css-modules/main.module.css";
 
+// Interface
+import Movie from "../../types/movie.interface";
+
 // Context
 import AppContext from "../../context/AppContext";
 
@@ -8,17 +11,6 @@ import AppContext from "../../context/AppContext";
 import MovieMenu from "./MovieMenu";
 import DeleteModal from "../modals/DeleteModal";
 import AddOrEditModal from "../modals/AddOrEditModal";
-
-interface Movie {
-    image: string,
-    title: string,
-    rating: number,
-    genres: string[],
-    releaseDate: string,
-    runtime: number,
-    overview: string,
-    movieUrl: string,
-}
 
 interface Props {
     movie: Movie
@@ -51,15 +43,7 @@ function CardMovie(props: Props) {
           title="Edit"
           setIsOpen={setIsOpenEditModal}
           setIsOpenMenu={setIsOpenMenu}
-          movieInfo={{
-            title: movie.title,
-            date: movie.releaseDate,
-            url: movie.movieUrl,
-            rating: movie.rating,
-            genre: movie.genres,
-            runtime: movie.runtime,
-            overview: movie.overview,
-          }}
+          movieInfo={movie}
         />
       ) }
       <article className={styles.movieItem}>
@@ -69,10 +53,10 @@ function CardMovie(props: Props) {
             <MovieMenu setIsOpen={setIsOpenMenu} setIsOpenDeleteModal={setIsOpenDeleteModal} setIsOpenEditModal={setIsOpenEditModal} />
           ) }
         </div>
-        <img src={movie.image} alt={`${movie.title}.png`} className={styles.movieImage} onClick={() => selectMovie(movie)} />
+        <img src={movie.poster_path} alt={movie.title} className={styles.movieImage} onClick={() => selectMovie(movie)} />
         <div className={styles.titleContainer}>
           <p className={styles.movieTitle}>{ movie.title }</p>
-          <p className={styles.movieDate}>{ movie.releaseDate.split("-")[0] }</p>
+          <p className={styles.movieDate}>{ movie.release_date.split("-")[0] }</p>
         </div>
         <p className={styles.genres}>
           { movie.genres.join(" & ") }

@@ -1,19 +1,11 @@
 import * as React from "react";
 import styles from "../../css-modules/main.module.css";
 
+// Interface
+import Movie from "../../types/movie.interface";
+
 // Components
 import CardMovie from "./CardMovie";
-
-interface Movie {
-    image: string,
-    title: string,
-    rating: number,
-    genres: string[],
-    releaseDate: string,
-    runtime: number,
-    overview: string,
-    movieUrl: string,
-}
 
 interface Props {
     moviesSelected: Movie[]

@@ -2,21 +2,14 @@ import * as React from "react";
 import styles from "../../css-modules/modal.module.css";
 import stylesHeader from "../../css-modules/header.module.css";
 
+// Interface
+import Movie from "../../types/movie.interface";
+
 // Components
 import Logo from "../logo";
 
 // Utils
 import timeConverter from "../../utils/timeConverter";
-
-interface Movie {
-    image: string,
-    title: string,
-    rating: number,
-    genres?: string[],
-    releaseDate: string,
-    runtime: number,
-    overview: string
-}
 
 interface Props {
     movie?: Movie,
@@ -47,7 +40,7 @@ const MoreInfoMovie: React.FC<Props> = ({ movie, setIsOpen }) => {
       </div>
       <div className={stylesHeader.container}>
         <div className={styles.movieImageContainer}>
-          <img src={movie.image} alt={`${movie.title}.png`} className={styles.movieImageAlternative} />
+          <img src={movie.poster_path} alt={`${movie.title}.png`} className={styles.movieImageAlternative} />
         </div>
         <div className={styles.movieInfoContainer}>
           <div className={styles.alternativeTitleContainer}>
@@ -57,9 +50,9 @@ const MoreInfoMovie: React.FC<Props> = ({ movie, setIsOpen }) => {
             </p>
           </div>
           <div className={styles.rating}>
-            <p className={styles.ratingCircle}>{ movie.rating }</p>
+            <p className={styles.ratingCircle}>{ movie.vote_average }</p>
           </div>
-          <p className={styles.releaseDate}>{ movie.releaseDate.split("-")[0] }</p>
+          <p className={styles.releaseDate}>{ movie.release_date.split("-")[0] }</p>
           <p className={styles.runtime}>{ timeConverter(movie.runtime) }</p>
           <p className={styles.overview}>{ movie.overview }</p>
         </div>

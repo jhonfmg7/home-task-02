@@ -1,21 +1,25 @@
 import * as React from 'react';
+import { useSelector } from 'react-redux';
 
-type Props = {
-    inputValue: string
+// Interface
+import { RootState } from '../types/redux.interface';
+
+type ErrorType = {
+    error: string
 }
 
-const useThrowError = (props: Props) => {
+const useThrowError = () => {
 
-    // Props Extraction
-    const { inputValue } = props;
+    // Redux State Extraction
+    const { error } = useSelector<RootState, ErrorType>( state => state.movies );
 
     React.useEffect(() => {
-        if (inputValue.length > 10) {
-            throw new Error("I crashed!");
+        if (error) {
+            throw new Error(error);
         }
-    }, [inputValue]);
+    }, [error]);
 
     return; 
 }
 
-export default useThrowError
+export default useThrowError;

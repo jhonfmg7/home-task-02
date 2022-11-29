@@ -1,14 +1,7 @@
 import { createContext } from "react";
 
-interface Movie {
-    image: string,
-    title: string,
-    rating: number,
-    genres?: string[],
-    releaseDate: string,
-    runtime: number,
-    overview: string
-}
+// Interface
+import Movie from "../types/movie.interface";
 
 interface ContextState {
     movieSelected?: Movie,

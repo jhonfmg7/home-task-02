@@ -9,6 +9,8 @@ import Logo from "../logo";
 import ErrorBoundary from "../ErrorBoundary";
 import AddOrEditModal from "../modals/AddOrEditModal";
 import MoreInfoMovie from "../modals/MoreInfoMovie";
+
+// Hooks
 import useThrowError from "../../hooks/useThrowError";
 
 function Header() {
@@ -19,7 +21,7 @@ function Header() {
   const [inputValue, setInputValue] = React.useState("");
   const [isOpenModal, setIsOpenModal] = React.useState(false);
 
-  useThrowError({ inputValue });
+  useThrowError();
 
   return (
     <header id="header" className={styles.hero} style={{ backgroundImage: "url(/img/hero.svg)" }} data-testid="header">

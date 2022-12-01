@@ -1,0 +1,21 @@
+.messageContainer {
+    position: fixed;
+    bottom: 5%;
+    left: 3%;
+    background-color: #F65261;
+    border-radius: 20px;
+    color: white;
+    transition: all .3s ease;
+}
+
+.messageTitle {
+    background-color: #dd4955;
+    width: 100%;
+    padding: 10px 50px;
+    border-radius: 20px;
+    text-transform: uppercase;
+}
+
+.message {
+    margin: 30px 50px;
+}

@@ -17,7 +17,10 @@ import Loader from "../loader";
 type State = {
   movies: Movie[],
   moviesQuantity: number,
-  loading: boolean
+  reload: boolean,
+  loading: boolean,
+  typeSelected: string,
+  sortBySelected: string
 }
 
 function Main() {
@@ -25,11 +28,9 @@ function Main() {
   const dispatch = useDispatch<AppDispatch>();
 
   // Redux State Extraction
-  const { movies, moviesQuantity, loading } = useSelector<RootState, State>((state) => state.movies);
-
-  // Local State
-  const [typeSelected, setTypeSelected] = React.useState("all");
-  const [sortBySelected, setSortBySelected] = React.useState("release_date");
+  const {
+    movies, moviesQuantity, reload, loading, typeSelected, sortBySelected,
+  } = useSelector<RootState, State>((state) => state.movies);
 
   React.useEffect(() => {
     if (typeSelected === "all") {
@@ -37,16 +38,11 @@ function Main() {
     } else {
       dispatch(getAllMoviesByGenreAction("0", typeSelected, sortBySelected));
     }
-  }, [typeSelected, sortBySelected]);
+  }, [typeSelected, sortBySelected, reload]);
 
   return (
     <main className={styles.background} data-testid="main">
-      <NavBar
-        typeSelected={typeSelected}
-        setTypeSelected={setTypeSelected}
-        sortBySelected={sortBySelected}
-        setSortBySelected={setSortBySelected}
-      />
+      <NavBar />
       { loading ? (
         <Loader />
       ) : (

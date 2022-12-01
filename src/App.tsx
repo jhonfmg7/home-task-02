@@ -15,6 +15,7 @@ import Header from './components/header';
 import Main from './components/main';
 import Footer from './components/footer';
 import ErrorBoundary from './components/ErrorBoundary';
+import Messages from './components/Messages';
 
 function App() {
   // Local State
@@ -29,6 +30,7 @@ function App() {
                 <Header />
                 <Main />
                 <Footer />
+                <Messages />
               </AppContext.Provider>
           </ErrorBoundary>
       </div>

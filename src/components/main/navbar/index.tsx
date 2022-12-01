@@ -1,27 +1,29 @@
 import * as React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "../../../css-modules/main.module.css";
+import { setSortBySelectedAction, setTypeSelectedAction } from "../../../redux/actions/moviesAction";
+
+// Interface
+import { AppDispatch, RootState } from "../../../types/redux.interface";
 
 // Utils
 import camelCase from "../../../utils/camelCase";
 
 const CATEGORIES = ["all", "action", "documentary", "comedy", "horror", "crime"];
 
-interface Props {
-    typeSelected: string,
-    sortBySelected: string,
-    setTypeSelected: (newState: string) => void,
-    setSortBySelected: (newState: string) => void
+type State = {
+  typeSelected: string,
+  sortBySelected: string
 }
 
-function NavBar(props: Props) {
-  // Props Extraction
-  const {
-    typeSelected, setTypeSelected, sortBySelected, setSortBySelected,
-  } = props;
+function NavBar() {
+  // Dispatch Instance
+  const dispatch = useDispatch<AppDispatch>();
 
-  const changeItemSelected = (type: string) => {
-    setTypeSelected(type);
-  };
+  // Redux State Extraction
+  const { typeSelected, sortBySelected } = useSelector<RootState, State>((state) => state.movies);
+
+  const changeItemSelected = (type: string) => dispatch(setTypeSelectedAction(type));
 
   return (
     <nav className={styles.navbar}>
@@ -33,7 +35,7 @@ function NavBar(props: Props) {
       <div className={styles.sortBySelect}>
         <p className={styles.secondaryText}>Sort by</p>
         <div className={styles.selectContainer}>
-          <select className={styles.selectInput} value={sortBySelected} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSortBySelected(e.target.value)}>
+          <select className={styles.selectInput} value={sortBySelected} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => dispatch(setSortBySelectedAction(e.target.value))}>
             <option value="release_date">Release Date</option>
             <option value="vote_average">Rating</option>
             <option value="runtime">Runtime</option>

@@ -5,7 +5,7 @@ interface Props {
     children: React.ReactNode,
     title: string,
     setIsOpen: (newState: boolean) => void,
-    setIsOpenMenu: (newState: boolean) => void
+    setIsOpenMenu?: (newState: boolean) => void
 }
 
 const Modal: React.FunctionComponent<React.PropsWithChildren<Props>> = (props: Props) => {
@@ -16,7 +16,7 @@ const Modal: React.FunctionComponent<React.PropsWithChildren<Props>> = (props: P
 
   const handleClose = () => {
     setIsOpen(false);
-    setIsOpenMenu(false);
+    setIsOpenMenu && setIsOpenMenu(false);
   };
 
   return (

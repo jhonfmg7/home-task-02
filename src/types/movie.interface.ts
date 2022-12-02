@@ -1,7 +1,7 @@
 interface Movie {
     id?: number,
     title: string,
-    url: string,
+    url?: string,
     genres?: string[],
     runtime: number,
     overview: string,

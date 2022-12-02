@@ -19,7 +19,8 @@ import Input from "./Input";
 import Select from "./Select";
 
 interface Props {
-  movie?: Movie
+  movie?: Movie,
+  setIsOpen: (newState: boolean) => void
 }
 
 function AddOrEditForm(props: Props) {
@@ -27,16 +28,15 @@ function AddOrEditForm(props: Props) {
   const dispatch = useDispatch<AppDispatch>();
 
   // Props Extraction
-  const { movie } = props;
+  const { movie, setIsOpen } = props;
 
   const initialState: Movie = {
     title: "",
-    url: "",
     genres: [],
     runtime: 0,
     overview: "",
     poster_path: "",
-    tagline: "",
+    tagline: "testing",
     vote_average: 0,
     vote_count: 0,
     release_date: "",
@@ -46,7 +46,6 @@ function AddOrEditForm(props: Props) {
 
   const validationSchema = Yup.object({
     title: Yup.string().required("Title is required"),
-    url: Yup.string(),
     genres: Yup.array().min(1, "Should select at least 1 genre"),
     runtime: Yup.number().moreThan(0, "Should be more than 0 minutes"),
     overview: Yup.string().required("Brief description is necessary"),
@@ -63,8 +62,8 @@ function AddOrEditForm(props: Props) {
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
         setSubmitting(false);
-        if (movie) return dispatch(editMovieAction(values));
-        return dispatch(createNewMovieAction(values));
+        if (movie) return dispatch(editMovieAction(values, setIsOpen));
+        return dispatch(createNewMovieAction(values, setIsOpen));
       }}
     >
       {({

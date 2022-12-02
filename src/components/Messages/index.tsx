@@ -6,18 +6,18 @@ import styles from "../../css-modules/messages.module.css";
 import { RootState } from "../../types/redux.interface";
 
 type State = {
-    messageDelete: any
+    message: any
 }
 
 function Messages() {
   // Redux State Extraction
-  const { messageDelete } = useSelector<RootState, State>((state) => state.movies);
+  const { message } = useSelector<RootState, State>((state) => state.movies);
 
-  if (messageDelete) {
+  if (message) {
     return (
       <section className={styles.messageContainer}>
         <div className={styles.messageTitle}>Notification</div>
-        <h1 className={styles.message}>{ messageDelete }</h1>
+        <h1 className={styles.message}>{ message }</h1>
       </section>
     );
   }

@@ -1,5 +1,5 @@
-import { FormikErrors, FormikTouched } from "formik";
 import * as React from "react";
+import { FormikErrors, FormikTouched } from "formik";
 import styles from "../../../css-modules/modal.module.css";
 
 // Interfaces

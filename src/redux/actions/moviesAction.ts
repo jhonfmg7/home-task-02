@@ -14,8 +14,8 @@ export function launchReloadAction() {
     return (dispatch: AppDispatch) => {
         dispatch(setReload(true));
         setTimeout(() => {
-            dispatch(setReload(false));
-        }, 500);
+            dispatch(clearMessages());
+        }, 3000);
     }
 }
 
@@ -96,7 +96,7 @@ const getAllMoviesError = (error: Error) => ({
     payload: error
 });
 
-export function createNewMovieAction(info: Movie) {
+export function createNewMovieAction(info: Movie, setIsOpen: (newState: boolean) => void) {
     return async(dispatch: AppDispatch) => {
         dispatch(createMovieStart());
         
@@ -111,10 +111,12 @@ export function createNewMovieAction(info: Movie) {
                 },
                 body: JSON.stringify(info)
             });
-            const data = await response.json();
-            console.log(data);
+            if (response.status === 201) {
+                dispatch(createMovieSuccess("The movie was created successfully"));
+                dispatch(launchReloadAction());
+                setIsOpen(false);
+            }
         } catch (error) {
-            console.log(error);
             dispatch(createMovieError(error));
         }
     }
@@ -124,7 +126,7 @@ const createMovieStart = () => ({
     type: CREATE_MOVIE_START
 });
 
-const createMovieSuccess = (response: Movie) => ({
+const createMovieSuccess = (response: string) => ({
     type: CREATE_MOVIE_SUCCESS,
     payload: response
 });
@@ -134,12 +136,25 @@ const createMovieError = (error: Error) => ({
     payload: error
 });
 
-export function editMovieAction(data: Movie) {
+export function editMovieAction(info: Movie, setIsOpen: (newState: boolean) => void) {
     return async(dispatch: AppDispatch) => {
         dispatch(editMovieStart());
-        console.log(data);
         try {
-            
+            const response = await fetch(`${ BACKEND_URL }`, {
+                method: "PUT",
+                mode: "cors",
+                cache: "no-cache",
+                credentials: "same-origin",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(info)
+            }); 
+            if (response.status === 200) {
+                dispatch(editMovieSuccess("The movie was edited successfully"));
+                dispatch(launchReloadAction());
+                setIsOpen(false);
+            }
         } catch (error) {
             dispatch(editMovieError(error));
         }
@@ -150,7 +165,7 @@ const editMovieStart = () => ({
     type: EDIT_MOVIE_START
 });
 
-const editMovieSuccess = (response: Movie) => ({
+const editMovieSuccess = (response: string) => ({
     type: EDIT_MOVIE_SUCCESS,
     payload: response
 });
@@ -177,9 +192,6 @@ export function deleteMovieAction(id: number) {
             if (response.status === 204) {
                 dispatch(deleteMovieSuccess("The movie was deleted successfully"));
                 dispatch(launchReloadAction());
-                setTimeout(() => {
-                    dispatch(clearMessages());
-                }, 3000);
             }
         } catch (error) {
             dispatch(deleteMovieError(error))

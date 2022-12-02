@@ -33,10 +33,12 @@ function Main() {
   } = useSelector<RootState, State>((state) => state.movies);
 
   React.useEffect(() => {
-    if (typeSelected === "all") {
-      dispatch(getAllMoviesAction("0", sortBySelected));
-    } else {
-      dispatch(getAllMoviesByGenreAction("0", typeSelected, sortBySelected));
+    if (reload) {
+      if (typeSelected === "all") {
+        dispatch(getAllMoviesAction("0", sortBySelected));
+      } else {
+        dispatch(getAllMoviesByGenreAction("0", typeSelected, sortBySelected));
+      }
     }
   }, [typeSelected, sortBySelected, reload]);
 

@@ -1,5 +1,5 @@
 import Movie from "../../types/movie.interface";
-import { CLEAR_MESSAGES, DELETE_MOVIE_ERROR, DELETE_MOVIE_START, DELETE_MOVIE_SUCCESS, GET_MOVIES_ERROR, GET_MOVIES_START, GET_MOVIES_SUCCESS, SET_RELOAD, SET_SORTBY_SELECTED, SET_TYPE_SELECTED } from "../types";
+import { CLEAR_MESSAGES, CREATE_MOVIE_ERROR, CREATE_MOVIE_START, CREATE_MOVIE_SUCCESS, DELETE_MOVIE_ERROR, DELETE_MOVIE_START, DELETE_MOVIE_SUCCESS, EDIT_MOVIE_ERROR, EDIT_MOVIE_START, EDIT_MOVIE_SUCCESS, GET_MOVIES_ERROR, GET_MOVIES_START, GET_MOVIES_SUCCESS, SET_RELOAD, SET_SORTBY_SELECTED, SET_TYPE_SELECTED } from "../types";
 
 interface InitialState {
     movies: Movie[],
@@ -9,7 +9,7 @@ interface InitialState {
     sortBySelected: string,
     loading: boolean,
     error: Error | any,
-    messageDelete: string,
+    message: string,
     deleteLoading: boolean,
     errorDelete: Error
 }
@@ -30,12 +30,12 @@ interface Action {
 const initialState: InitialState = {
     movies: [],
     moviesQuantity: 0,
-    reload: false,
+    reload: true,
     typeSelected: "all",
     sortBySelected: "release_date",
     loading: false,
     error: null,
-    messageDelete: null,
+    message: null,
     deleteLoading: false,
     errorDelete: null
 }
@@ -69,6 +69,7 @@ export default (state = initialState, action: Action) => {
                 ...state,
                 loading: false,
                 error: null,
+                reload: false,
                 movies: action.payload.movies,
                 moviesQuantity: action.payload.quantity
             }
@@ -80,28 +81,33 @@ export default (state = initialState, action: Action) => {
                 movies: []
             }
         case DELETE_MOVIE_START:
+        case CREATE_MOVIE_START:
+        case EDIT_MOVIE_START:
             return {
                 ...state,
                 deleteLoading: true,
-                errorDelete: null
             }
         case DELETE_MOVIE_SUCCESS:
+        case CREATE_MOVIE_SUCCESS:
+        case EDIT_MOVIE_SUCCESS:
             return {
                 ...state,
                 deleteLoading: false,
-                messageDelete: action.payload
+                message: action.payload
             }
         case DELETE_MOVIE_ERROR:
+        case CREATE_MOVIE_ERROR:
+        case EDIT_MOVIE_ERROR:
             return {
                 ...state,
                 deleteLoading: false,
-                errorDelete: action.payload
+                error: action.payload
             }
         case CLEAR_MESSAGES:
             return {
                 ...state,
-                errorDelete: null,
-                messageDelete: null
+                error: null,
+                message: null
             }
         default:
             return state;

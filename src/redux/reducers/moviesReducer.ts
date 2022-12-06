@@ -56,6 +56,7 @@ export default (state = initialState, action: Action) => {
         case SET_SORTBY_SELECTED:
             return {
                 ...state,
+                reload: true,
                 sortBySelected: action.payload.sortBy
             }
         case GET_MOVIES_START:

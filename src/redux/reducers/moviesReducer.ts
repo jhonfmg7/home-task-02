@@ -50,6 +50,7 @@ export default (state = initialState, action: Action) => {
         case SET_TYPE_SELECTED:
             return {
                 ...state,
+                reload: true,
                 typeSelected: action.payload.type
             }
         case SET_SORTBY_SELECTED:

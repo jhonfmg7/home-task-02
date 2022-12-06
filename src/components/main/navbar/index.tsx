@@ -1,6 +1,8 @@
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../../../css-modules/main.module.css";
+
+// Actions
 import { setSortBySelectedAction, setTypeSelectedAction } from "../../../redux/actions/moviesAction";
 
 // Interface

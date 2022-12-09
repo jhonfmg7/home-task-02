@@ -33,7 +33,7 @@ const DeleteModal: React.FC<Props> = ({
     <Modal title={title} setIsOpen={setIsOpen} setIsOpenMenu={setIsOpenMenu}>
       <p className={styles.deleteMessage}>Are you sure you want to delete this movie?</p>
       <div className={styles.textEnd}>
-        <button className={stylesHeader.secondaryButton} type="button" onClick={() => handleDelete()}>Confirm</button>
+        <button className={stylesHeader.secondaryButton} type="button" onClick={handleDelete}>Confirm</button>
       </div>
     </Modal>
   );

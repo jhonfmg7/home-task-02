@@ -5,6 +5,14 @@ import { CLEAR_MESSAGES, CREATE_MOVIE_ERROR, CREATE_MOVIE_START, CREATE_MOVIE_SU
 const BACKEND_URL = "http://localhost:4000/movies";
 const MOVIES_PER_PAGE = "9";
 const SORT_ORDER = "desc";
+const COMMON_OPTIONS = {
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    headers: {
+        'Content-Type': 'application/json'
+    }
+}
 
 const clearMessages = () => ({
     type: CLEAR_MESSAGES
@@ -93,7 +101,7 @@ const getAllMoviesSuccess = (movies: Movie[], quantity: number) => ({
 
 const getAllMoviesError = (error: Error) => ({
     type: GET_MOVIES_ERROR,
-    payload: error
+    payload: {error}
 });
 
 export function createNewMovieAction(info: Movie, setIsOpen: (newState: boolean) => void) {
@@ -128,12 +136,12 @@ const createMovieStart = () => ({
 
 const createMovieSuccess = (response: string) => ({
     type: CREATE_MOVIE_SUCCESS,
-    payload: response
+    payload: {message: response}
 });
 
 const createMovieError = (error: Error) => ({
     type: CREATE_MOVIE_ERROR,
-    payload: error
+    payload: {error}
 });
 
 export function editMovieAction(info: Movie, setIsOpen: (newState: boolean) => void) {
@@ -167,12 +175,12 @@ const editMovieStart = () => ({
 
 const editMovieSuccess = (response: string) => ({
     type: EDIT_MOVIE_SUCCESS,
-    payload: response
+    payload: {message: response}
 });
 
 const editMovieError = (error: Error) => ({
     type: EDIT_MOVIE_ERROR,
-    payload: error
+    payload: {error}
 });
 
 export function deleteMovieAction(id: number) {
@@ -205,10 +213,10 @@ const deleteMovieStart = () => ({
 
 const deleteMovieSuccess = (response: string) => ({
     type: DELETE_MOVIE_SUCCESS,
-    payload: response
+    payload: {message: response}
 });
 
 const deleteMovieError = (error: Error) => ({
     type: DELETE_MOVIE_ERROR,
-    payload: error
+    payload: {error}
 });

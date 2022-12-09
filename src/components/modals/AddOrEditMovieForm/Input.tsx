@@ -1,25 +1,10 @@
 import * as React from "react";
-import { FormikErrors, FormikTouched } from "formik";
 import styles from "../../../css-modules/modal.module.css";
 
 // Interface
-import Movie from "../../../types/movie.interface";
+import Input from "../../../types/input.interface";
 
-interface Props {
-    isLarge: boolean,
-    id: string,
-    title: string,
-    info: Movie,
-    value: keyof Movie,
-    type: string,
-    placeholder: string,
-    errors: FormikErrors<Movie>,
-    touched: FormikTouched<Movie>,
-    handleChange: React.ChangeEventHandler<HTMLInputElement>,
-    handleBlur: React.FocusEventHandler<HTMLInputElement>
-}
-
-function Input(props: Props) {
+function Input(props: Input) {
   // Props Extraction
   const {
     isLarge, id, title, info, value, type, placeholder, errors, touched, handleChange, handleBlur,

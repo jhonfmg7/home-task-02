@@ -49,7 +49,7 @@ function AddOrEditForm(props: Props) {
     genres: Yup.array().min(1, "Should select at least 1 genre"),
     runtime: Yup.number().moreThan(0, "Should be more than 0 minutes"),
     overview: Yup.string().required("Brief description is necessary"),
-    poster_path: Yup.string().required("The URL image is required"),
+    poster_path: Yup.string().url().required("The URL image is required"),
     vote_average: Yup.number().moreThan(0, "Should be more than 0"),
     release_date: Yup.date().required("Date of release is required"),
   });
@@ -85,10 +85,10 @@ function AddOrEditForm(props: Props) {
           <div className={styles.inputGroupExtraLarge}>
             <label htmlFor="overview" className={styles.label}>Overview</label>
             <textarea id="overview" cols={30} rows={10} name="overview" placeholder="Movie Description" className={errors.overview && touched.overview ? styles.inputWithError : styles.input} value={values.overview} onChange={handleChange} />
-            <p className={styles.errorInput}>{errors.overview && touched.overview && errors.overview}</p>
+            <p className={styles.errorInput}>{touched.overview && errors.overview}</p>
           </div>
           <div className={styles.textEnd}>
-            <button className={styles.secondaryButton} type="button" onClick={(e) => handleReset(setValues)}>Reset</button>
+            <button className={styles.secondaryButton} type="button" onClick={() => handleReset(setValues)}>Reset</button>
             <button className={stylesHeader.secondaryButton} type="submit">Submit</button>
           </div>
         </form>

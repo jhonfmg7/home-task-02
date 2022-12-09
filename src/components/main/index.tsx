@@ -23,6 +23,9 @@ type State = {
   sortBySelected: string
 }
 
+const NUM_PAGE: string = "0";
+const CATEGORIES: string[] = ["all", "action", "documentary", "comedy", "horror", "crime"];
+
 function Main() {
   // Dispatch Instance
   const dispatch = useDispatch<AppDispatch>();
@@ -34,10 +37,10 @@ function Main() {
 
   React.useEffect(() => {
     if (reload) {
-      if (typeSelected === "all") {
-        dispatch(getAllMoviesAction("0", sortBySelected));
+      if (typeSelected === CATEGORIES[0]) {
+        dispatch(getAllMoviesAction(NUM_PAGE, sortBySelected));
       } else {
-        dispatch(getAllMoviesByGenreAction("0", typeSelected, sortBySelected));
+        dispatch(getAllMoviesByGenreAction(NUM_PAGE, typeSelected, sortBySelected));
       }
     }
   }, [typeSelected, sortBySelected, reload]);

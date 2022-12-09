@@ -1,22 +1,12 @@
 import * as React from "react";
-import { FormikErrors, FormikTouched } from "formik";
 import styles from "../../../css-modules/modal.module.css";
 
 // Interfaces
-import Movie from "../../../types/movie.interface";
+import Input from "../../../types/input.interface";
 
-interface Props {
-    id: string,
-    title: string,
-    info: Movie,
-    value: keyof Movie,
-    errors: FormikErrors<Movie>,
-    touched: FormikTouched<Movie>,
-    handleChange: React.ChangeEventHandler<HTMLSelectElement>,
-    handleBlur: React.FocusEventHandler<HTMLSelectElement>
-}
+const OPTIONS = ["Action", "Adventure", "Science Fiction", "Horror", "Documentary", "Comedy", "Crime"];
 
-function Select(props: Props) {
+function Select(props: Input) {
   // Props Extraction
   const {
     id, title, info, value, errors, touched, handleChange, handleBlur,
@@ -34,15 +24,11 @@ function Select(props: Props) {
         onChange={handleChange}
         onBlur={handleBlur}
       >
-        <option value="Action">Action</option>
-        <option value="Adventure">Adventure</option>
-        <option value="Science Fiction">Science Fiction</option>
-        <option value="Horror">Horror</option>
-        <option value="Documentary">Documentary</option>
-        <option value="Comedy">Comedy</option>
-        <option value="Crime">Crime</option>
+        { OPTIONS.map( option => (
+          <option value={option}>{ option }</option>
+        ) ) }
       </select>
-      <p className={styles.errorInput}>{errors[value] && touched[value] && errors[value]}</p>
+      <p className={styles.errorInput}>{touched[value] && errors[value]}</p>
     </div>
   );
 }

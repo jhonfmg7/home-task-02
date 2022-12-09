@@ -11,12 +11,12 @@ import { AppDispatch, RootState } from "../../../types/redux.interface";
 // Utils
 import camelCase from "../../../utils/camelCase";
 
-const CATEGORIES = ["all", "action", "documentary", "comedy", "horror", "crime"];
-
 type State = {
   typeSelected: string,
   sortBySelected: string
 }
+
+const CATEGORIES: string[] = ["all", "action", "documentary", "comedy", "horror", "crime"];
 
 function NavBar() {
   // Dispatch Instance
@@ -37,7 +37,7 @@ function NavBar() {
       <div className={styles.sortBySelect}>
         <p className={styles.secondaryText}>Sort by</p>
         <div className={styles.selectContainer}>
-          <select className={styles.selectInput} value={sortBySelected} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => dispatch(setSortBySelectedAction(e.target.value))}>
+          <select className={styles.selectInput} value={sortBySelected} onChange={e => dispatch(setSortBySelectedAction(e.target.value))}>
             <option value="release_date">Release Date</option>
             <option value="vote_average">Rating</option>
             <option value="runtime">Runtime</option>

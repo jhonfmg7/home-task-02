@@ -16,7 +16,7 @@ const Modal: React.FunctionComponent<React.PropsWithChildren<Props>> = (props: P
 
   const handleClose = () => {
     setIsOpen(false);
-    setIsOpenMenu && setIsOpenMenu(false);
+    setIsOpenMenu?.(false);
   };
 
   return (

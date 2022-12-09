@@ -8,7 +8,7 @@ interface InitialState {
     typeSelected: string,
     sortBySelected: string,
     loading: boolean,
-    error: Error | any,
+    error: string | null,
     message: string,
     deleteLoading: boolean,
     errorDelete: Error
@@ -17,6 +17,8 @@ interface InitialState {
 interface Payload {
     movies: Movie[],
     quantity: number,
+    message: string,
+    error: string | null,
     reload: boolean,
     type: string,
     sortBy: string
@@ -79,7 +81,7 @@ export default (state = initialState, action: Action) => {
             return {
                 ...state,
                 loading: false,
-                error: action.payload,
+                error: action.payload.error,
                 movies: []
             }
         case DELETE_MOVIE_START:
@@ -95,7 +97,7 @@ export default (state = initialState, action: Action) => {
             return {
                 ...state,
                 deleteLoading: false,
-                message: action.payload
+                message: action.payload.message
             }
         case DELETE_MOVIE_ERROR:
         case CREATE_MOVIE_ERROR:
@@ -103,7 +105,7 @@ export default (state = initialState, action: Action) => {
             return {
                 ...state,
                 deleteLoading: false,
-                error: action.payload
+                error: action.payload.error
             }
         case CLEAR_MESSAGES:
             return {

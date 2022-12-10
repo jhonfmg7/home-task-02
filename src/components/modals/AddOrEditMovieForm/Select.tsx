@@ -1,10 +1,13 @@
 import * as React from "react";
 import styles from "../../../css-modules/modal.module.css";
 
+// Constantes
+import { OPTIONS } from "../../../constants";
+
 // Interfaces
 import Input from "../../../types/input.interface";
 
-const OPTIONS = ["Action", "Adventure", "Science Fiction", "Horror", "Documentary", "Comedy", "Crime"];
+// const OPTIONS = ["Action", "Adventure", "Science Fiction", "Horror", "Documentary", "Comedy", "Crime"];
 
 function Select(props: Input) {
   // Props Extraction

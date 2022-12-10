@@ -9,6 +9,9 @@ import { AppDispatch, RootState } from "../../types/redux.interface";
 // Actions
 import { getAllMoviesAction, getAllMoviesByGenreAction } from "../../redux/actions/moviesAction";
 
+// Constantes
+import { OPTIONS } from "../../constants";
+
 // Components
 import NavBar from "./navbar";
 import ListMovies from "./ListMovies";
@@ -24,7 +27,6 @@ type State = {
 }
 
 const NUM_PAGE: string = "0";
-const CATEGORIES: string[] = ["all", "action", "documentary", "comedy", "horror", "crime"];
 
 function Main() {
   // Dispatch Instance
@@ -37,7 +39,7 @@ function Main() {
 
   React.useEffect(() => {
     if (reload) {
-      if (typeSelected === CATEGORIES[0]) {
+      if (typeSelected === OPTIONS[0]) {
         dispatch(getAllMoviesAction(NUM_PAGE, sortBySelected));
       } else {
         dispatch(getAllMoviesByGenreAction(NUM_PAGE, typeSelected, sortBySelected));

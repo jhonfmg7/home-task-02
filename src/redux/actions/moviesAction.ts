@@ -3,6 +3,7 @@ import { CLEAR_MESSAGES, CREATE_MOVIE_ERROR, CREATE_MOVIE_START, CREATE_MOVIE_SU
 // Interface
 import Movie from "../../types/movie.interface";
 import { AppDispatch } from "../../types/redux.interface";
+import { OPTIONS } from "../../constants";
 
 type Headers = {
     'Content-type': string
@@ -13,6 +14,14 @@ interface RequestInterface {
     mode: RequestMode,
     cache: RequestCache,
     headers: Headers
+}
+
+interface Params {
+    limit: string, 
+    offset: string, 
+    sortBy: string, 
+    sortOrder: string,
+    filter?: string
 }
 
 const BACKEND_URL: string = "http://localhost:4000/movies";
@@ -68,12 +77,13 @@ const setSortBySelected = (sortBy: string) => ({
     payload: {sortBy}
 });
 
-export function getAllMoviesAction(numPage: string, sortBy: string) {
+export function getAllMoviesByGenreAction(numPage: string, sortBy: string, genre?: string) {
     return async(dispatch: AppDispatch) => {
         dispatch(getAllMoviesStart());
-
         try {
-            const searchParams = new URLSearchParams({ limit: MOVIES_PER_PAGE, offset: numPage, sortBy, sortOrder: SORT_ORDER });
+            const params = { limit: MOVIES_PER_PAGE, offset: numPage, sortBy, sortOrder: SORT_ORDER }
+            const paramsWithFilter = { limit: MOVIES_PER_PAGE, offset: numPage, sortBy, sortOrder: SORT_ORDER, filter: genre };
+            const searchParams = new URLSearchParams(genre === OPTIONS[0] ? params : paramsWithFilter);
             const response = await fetch(`${ BACKEND_URL }?${searchParams}`);
             const data = await response.json();
 
@@ -81,24 +91,7 @@ export function getAllMoviesAction(numPage: string, sortBy: string) {
                 dispatch(getAllMoviesSuccess(data.data, data.totalAmount));
             }
         } catch (error) {
-            dispatch(getAllMoviesError(error))
-        }
-    }
-}
-
-export function getAllMoviesByGenreAction(numPage: string, genre: string, sortBy: string) {
-    return async(dispatch: AppDispatch) => {
-        dispatch(getAllMoviesStart());
-
-        try {
-            const searchParams = new URLSearchParams({ limit: MOVIES_PER_PAGE, offset: numPage, sortBy, sortOrder: SORT_ORDER, filter: genre });
-            const response = await fetch(`${ BACKEND_URL }?${searchParams}`);
-            const data = await response.json();
-
-            if (response.status === 200) {
-                dispatch(getAllMoviesSuccess(data.data, data.totalAmount));
-            }
-        } catch (error) {
+            console.log(error)
             dispatch(getAllMoviesError(error))
         }
     }
@@ -124,14 +117,12 @@ export function createNewMovieAction(info: Movie, setIsOpen: (newState: boolean)
         
         try {
             const response = await fetch(`${ BACKEND_URL }`, { ...COMMON_OPTIONS, method: "POST", body: JSON.stringify(info) });
-            console.log(response);
             if (response.status === 201) {
                 dispatch(createMovieSuccess("The movie was created successfully"));
                 dispatch(launchReloadAction());
                 setIsOpen(false);
             }
         } catch (error) {
-            console.log(error);
             dispatch(createMovieError(error));
         }
     }

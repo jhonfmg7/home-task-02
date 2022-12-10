@@ -1,1 +1,1 @@
-export const OPTIONS = ["Action", "Adventure", "Science Fiction", "Horror", "Documentary", "Comedy", "Crime"];
+export const OPTIONS = ["all", "Action", "Adventure", "Science Fiction", "Horror", "Documentary", "Comedy", "Crime"];

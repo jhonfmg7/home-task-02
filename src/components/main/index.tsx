@@ -7,7 +7,7 @@ import Movie from "../../types/movie.interface";
 import { AppDispatch, RootState } from "../../types/redux.interface";
 
 // Actions
-import { getAllMoviesAction, getAllMoviesByGenreAction } from "../../redux/actions/moviesAction";
+import { getAllMoviesByGenreAction } from "../../redux/actions/moviesAction";
 
 // Constantes
 import { OPTIONS } from "../../constants";
@@ -39,11 +39,7 @@ function Main() {
 
   React.useEffect(() => {
     if (reload) {
-      if (typeSelected === OPTIONS[0]) {
-        dispatch(getAllMoviesAction(NUM_PAGE, sortBySelected));
-      } else {
-        dispatch(getAllMoviesByGenreAction(NUM_PAGE, typeSelected, sortBySelected));
-      }
+        dispatch(getAllMoviesByGenreAction(NUM_PAGE, sortBySelected, typeSelected));
     }
   }, [typeSelected, sortBySelected, reload]);
 

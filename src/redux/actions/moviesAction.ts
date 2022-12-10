@@ -91,7 +91,6 @@ export function getAllMoviesByGenreAction(numPage: string, sortBy: string, genre
                 dispatch(getAllMoviesSuccess(data.data, data.totalAmount));
             }
         } catch (error) {
-            console.log(error)
             dispatch(getAllMoviesError(error))
         }
     }

@@ -26,7 +26,7 @@ type State = {
   sortBySelected: string
 }
 
-const NUM_PAGE: string = "0";
+const NUM_PAGE = "0";
 
 function Main() {
   // Dispatch Instance

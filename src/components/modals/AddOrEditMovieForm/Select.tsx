@@ -25,7 +25,7 @@ function Select(props: Input) {
         onBlur={handleBlur}
       >
         { OPTIONS.map( option => (
-          <option value={option}>{ option }</option>
+          <option key={option} value={option}>{ option }</option>
         ) ) }
       </select>
       <p className={styles.errorInput}>{touched[value] && errors[value]}</p>

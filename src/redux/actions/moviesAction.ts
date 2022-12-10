@@ -1,16 +1,29 @@
-import { AppDispatch } from "../../types/redux.interface";
-import Movie from "../../types/movie.interface";
 import { CLEAR_MESSAGES, CREATE_MOVIE_ERROR, CREATE_MOVIE_START, CREATE_MOVIE_SUCCESS, DELETE_MOVIE_ERROR, DELETE_MOVIE_START, DELETE_MOVIE_SUCCESS, EDIT_MOVIE_ERROR, EDIT_MOVIE_START, EDIT_MOVIE_SUCCESS, GET_MOVIES_ERROR, GET_MOVIES_START, GET_MOVIES_SUCCESS, SET_RELOAD, SET_SORTBY_SELECTED, SET_TYPE_SELECTED } from "../types";
+
+// Interface
+import Movie from "../../types/movie.interface";
+import { AppDispatch } from "../../types/redux.interface";
+
+type Headers = {
+    'Content-type': string
+}
+
+interface RequestInterface {
+    credentials: RequestCredentials,
+    mode: RequestMode,
+    cache: RequestCache,
+    headers: Headers
+}
 
 const BACKEND_URL = "http://localhost:4000/movies";
 const MOVIES_PER_PAGE = "9";
 const SORT_ORDER = "desc";
-const COMMON_OPTIONS = {
+const COMMON_OPTIONS: RequestInterface = {
     mode: "cors",
     cache: "no-cache",
     credentials: "same-origin",
     headers: {
-        'Content-Type': 'application/json'
+        'Content-type': 'application/json'
     }
 }
 
@@ -109,22 +122,15 @@ export function createNewMovieAction(info: Movie, setIsOpen: (newState: boolean)
         dispatch(createMovieStart());
         
         try {
-            const response = await fetch(`${ BACKEND_URL }`, {
-                method: "POST",
-                mode: "cors",
-                cache: "no-cache",
-                credentials: "same-origin",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(info)
-            });
+            const response = await fetch(`${ BACKEND_URL }`, { ...COMMON_OPTIONS, method: "POST", body: JSON.stringify(info) });
+            console.log(response);
             if (response.status === 201) {
                 dispatch(createMovieSuccess("The movie was created successfully"));
                 dispatch(launchReloadAction());
                 setIsOpen(false);
             }
         } catch (error) {
+            console.log(error);
             dispatch(createMovieError(error));
         }
     }
@@ -148,16 +154,7 @@ export function editMovieAction(info: Movie, setIsOpen: (newState: boolean) => v
     return async(dispatch: AppDispatch) => {
         dispatch(editMovieStart());
         try {
-            const response = await fetch(`${ BACKEND_URL }`, {
-                method: "PUT",
-                mode: "cors",
-                cache: "no-cache",
-                credentials: "same-origin",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(info)
-            }); 
+            const response = await fetch(`${ BACKEND_URL }`, { ...COMMON_OPTIONS, method: "PUT", body: JSON.stringify(info) }); 
             if (response.status === 200) {
                 dispatch(editMovieSuccess("The movie was edited successfully"));
                 dispatch(launchReloadAction());
@@ -188,15 +185,7 @@ export function deleteMovieAction(id: number) {
         dispatch(deleteMovieStart());
 
         try {
-            const response = await fetch(`${ BACKEND_URL }/${ id }`, {
-                method: "DELETE",
-                mode: "cors",
-                cache: "no-cache",
-                credentials: "same-origin",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            });
+            const response = await fetch(`${ BACKEND_URL }/${ id }`, { ...COMMON_OPTIONS, method: "DELETE" })
             if (response.status === 204) {
                 dispatch(deleteMovieSuccess("The movie was deleted successfully"));
                 dispatch(launchReloadAction());

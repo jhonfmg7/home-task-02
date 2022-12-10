@@ -15,9 +15,10 @@ interface RequestInterface {
     headers: Headers
 }
 
-const BACKEND_URL = "http://localhost:4000/movies";
-const MOVIES_PER_PAGE = "9";
-const SORT_ORDER = "desc";
+const BACKEND_URL: string = "http://localhost:4000/movies";
+const MOVIES_PER_PAGE: string = "9";
+const SORT_ORDER: string = "desc";
+const TIME_TO_LAUNCH_RELOAD: number = 3000;
 const COMMON_OPTIONS: RequestInterface = {
     mode: "cors",
     cache: "no-cache",
@@ -36,7 +37,7 @@ export function launchReloadAction() {
         dispatch(setReload(true));
         setTimeout(() => {
             dispatch(clearMessages());
-        }, 3000);
+        }, TIME_TO_LAUNCH_RELOAD);
     }
 }
 

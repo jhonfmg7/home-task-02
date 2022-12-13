@@ -1,36 +1,29 @@
 import * as React from "react";
 import styles from "../../../css-modules/modal.module.css";
 
-interface Props {
-    isLarge: boolean,
-    id: string,
-    title: string,
-    info: any,
-    value: string,
-    type: string,
-    placeholder: string,
-    handleChange: React.ChangeEventHandler
-}
+// Interface
+import Input from "../../../types/input.interface";
 
-function Input(props: Props) {
+function Input(props: Input) {
   // Props Extraction
   const {
-    isLarge, id, title, info, value, type, placeholder, handleChange,
+    isLarge, id, title, info, value, type, placeholder, errors, touched, handleChange, handleBlur,
   } = props;
 
   return (
     <div className={isLarge ? styles.inputGroupLarge : styles.inputGroupShort}>
       <label htmlFor={id} className={styles.label}>{ title }</label>
-      <br />
       <input
         id={id}
         name={value}
         type={type}
         placeholder={placeholder}
-        className={styles.input}
+        className={errors[value] && touched[value] ? styles.inputWithError : styles.input}
         value={info[value]}
         onChange={handleChange}
+        onBlur={handleBlur}
       />
+      <p className={styles.errorInput}>{errors[value] && touched[value] && errors[value]}</p>
     </div>
   );
 }

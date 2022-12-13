@@ -1,68 +1,99 @@
 import * as React from "react";
+import { useDispatch } from "react-redux";
+import { Formik } from "formik";
+import * as Yup from "yup";
+
+// Styles
 import styles from "../../../css-modules/modal.module.css";
 import stylesHeader from "../../../css-modules/header.module.css";
 
+// Interface
+import Movie from "../../../types/movie.interface";
+import { AppDispatch } from "../../../types/redux.interface";
+
+// Actions
+import { createNewMovieAction, editMovieAction } from "../../../redux/actions/moviesAction";
+
 // Components
 import Input from "./Input";
-
-// Types
-import Movie from "../../../types/movie.interface";
+import Select from "./Select";
 
 interface Props {
-    movie?: Movie
+  movie?: Movie,
+  setIsOpen: (newState: boolean) => void
 }
 
 function AddOrEditForm(props: Props) {
-  // Props Extraction
-  const { movie } = props;
+  // Dispatch Instance
+  const dispatch = useDispatch<AppDispatch>();
 
-  // Local State
+  // Props Extraction
+  const { movie, setIsOpen } = props;
+
   const initialState: Movie = {
-    id: 0,
     title: "",
-    url: "",
     genres: [],
     runtime: 0,
     overview: "",
     poster_path: "",
-    tagline: "",
+    tagline: "testing",
     vote_average: 0,
     vote_count: 0,
     release_date: "",
     budget: 0,
     revenue: 0,
-
-  };
-  const [info, setInfo] = React.useState(initialState);
-
-  const handleChange = (e:React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInfo((oldValue) => ({ ...oldValue, [e.target.name]: e.target.value }));
   };
 
-  const handleReset = () => setInfo(initialState);
+  const validationSchema = Yup.object({
+    title: Yup.string().required("Title is required"),
+    genres: Yup.array().min(1, "Should select at least 1 genre"),
+    runtime: Yup.number().moreThan(0, "Should be more than 0 minutes"),
+    overview: Yup.string().required("Brief description is necessary"),
+    poster_path: Yup.string().url().required("The URL image is required"),
+    vote_average: Yup.number().moreThan(0, "Should be more than 0"),
+    release_date: Yup.date().required("Date of release is required"),
+  });
 
-  React.useEffect(() => {
-    setInfo(movie ?? initialState);
-  }, [movie]);
+  const handleReset = (setValues: (newState: Movie) => void) => setValues(initialState);
 
   return (
-    <form className={styles.form}>
-      <Input isLarge id="title" title="Title" info={info} value="title" type="text" placeholder="Title" handleChange={handleChange} />
-      <Input isLarge={false} id="date" title="Release Date" info={info} value="release_date" type="date" placeholder="Select Date" handleChange={handleChange} />
-      <Input isLarge id="url" title="Movie URL" info={info} value="url" type="text" placeholder="https://" handleChange={handleChange} />
-      <Input isLarge={false} id="rating" title="Rating" info={info} value="vote_average" type="number" placeholder="7.8" handleChange={handleChange} />
-      <Input isLarge id="genre" title="Genre" info={info} value="genre" type="text" placeholder="Select Genre" handleChange={handleChange} />
-      <Input isLarge={false} id="runtime" title="Runtime" info={info} value="runtime" type="text" placeholder="minutes" handleChange={handleChange} />
-      <div className={styles.inputGroupExtraLarge}>
-        <label htmlFor="overview" className={styles.label}>Overview</label>
-        <br />
-        <textarea id="overview" cols={30} rows={10} name="overview" placeholder="Movie Description" className={styles.input} value={info.overview} onChange={handleChange} />
-      </div>
-      <div className={styles.textEnd}>
-        <button className={styles.secondaryButton} type="button" onClick={handleReset}>Reset</button>
-        <button className={stylesHeader.secondaryButton}>Submit</button>
-      </div>
-    </form>
+    <Formik
+      initialValues={movie ?? initialState}
+      validationSchema={validationSchema}
+      onSubmit={(values, { setSubmitting }) => {
+        setSubmitting(false);
+        if (movie) return dispatch(editMovieAction(values, setIsOpen));
+        return dispatch(createNewMovieAction(values, setIsOpen));
+      }}
+    >
+      {({
+        values,
+        errors,
+        touched,
+        setValues,
+        handleBlur,
+        handleChange,
+        handleSubmit,
+      }) => (
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <Input isLarge id="title" title="Title" info={values} value="title" type="text" placeholder="Title" errors={errors} touched={touched} handleChange={handleChange} handleBlur={handleBlur} />
+          <Input isLarge={false} id="date" title="Release Date" info={values} value="release_date" type="date" placeholder="Select Date" errors={errors} touched={touched} handleChange={handleChange} handleBlur={handleBlur} />
+          <Input isLarge id="url" title="Movie URL Image" info={values} value="poster_path" type="text" placeholder="https://" errors={errors} touched={touched} handleChange={handleChange} handleBlur={handleBlur} />
+          <Input isLarge={false} id="rating" title="Rating" info={values} value="vote_average" type="number" placeholder="7.8" errors={errors} touched={touched} handleChange={handleChange} handleBlur={handleBlur} />
+          <Select id="genres" title="Genres" info={values} value="genres" errors={errors} touched={touched} handleChange={handleChange} handleBlur={handleBlur} />
+          <Input isLarge={false} id="runtime" title="Runtime" info={values} value="runtime" type="number" placeholder="minutes" errors={errors} touched={touched} handleChange={handleChange} handleBlur={handleBlur} />
+          <div className={styles.inputGroupExtraLarge}>
+            <label htmlFor="overview" className={styles.label}>Overview</label>
+            <textarea id="overview" cols={30} rows={10} name="overview" placeholder="Movie Description" className={errors.overview && touched.overview ? styles.inputWithError : styles.input} value={values.overview} onChange={handleChange} />
+            <p className={styles.errorInput}>{touched.overview && errors.overview}</p>
+          </div>
+          <div className={styles.textEnd}>
+            <button className={styles.secondaryButton} type="button" onClick={() => handleReset(setValues)}>Reset</button>
+            <button className={stylesHeader.secondaryButton} type="submit">Submit</button>
+          </div>
+        </form>
+      )}
+    </Formik>
   );
 }
 

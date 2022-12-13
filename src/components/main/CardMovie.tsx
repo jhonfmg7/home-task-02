@@ -36,7 +36,7 @@ function CardMovie(props: Props) {
   return (
     <>
       { isOpenDeleteModal && (
-        <DeleteModal title="Delete" setIsOpen={setIsOpenDeleteModal} setIsOpenMenu={setIsOpenMenu} />
+        <DeleteModal title="Delete" id={movie.id} setIsOpen={setIsOpenDeleteModal} setIsOpenMenu={setIsOpenMenu} />
       ) }
       { isOpenEditModal && (
         <AddOrEditModal

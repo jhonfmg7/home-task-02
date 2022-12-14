@@ -6,3 +6,10 @@
 .error {
     white-space: 'pre-wrap';
 }
+
+.pageNotFound {
+    text-align: center;
+    margin: auto;
+    margin-top: 20%;
+    color: white;
+}

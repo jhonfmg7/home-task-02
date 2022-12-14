@@ -13,11 +13,13 @@ function Messages() {
   // Redux State Extraction
   const { message } = useSelector<RootState, State>((state) => state.movies);
 
-    return message ? 
+  return message
+    ? (
       <section className={styles.messageContainer}>
         <div className={styles.messageTitle}>Notification</div>
         <h1 className={styles.message}>{ message }</h1>
       </section>
+    )
     : null;
 }
 

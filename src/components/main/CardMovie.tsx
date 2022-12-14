@@ -12,6 +12,9 @@ import MovieMenu from "./MovieMenu";
 import DeleteModal from "../modals/DeleteModal";
 import AddOrEditModal from "../modals/AddOrEditModal";
 
+// Hooks
+import useCustomSearchParams from "../../hooks/useCustomSearchParams";
+
 interface Props {
     movie: Movie
 }
@@ -19,6 +22,9 @@ interface Props {
 function CardMovie(props: Props) {
   // Props Extraction
   const { movie } = props;
+
+  // URL Extraction
+  const [search, setSearch] = useCustomSearchParams();
 
   // Context Extraction
   const { setMovieSelected, setIsOpenMoreInfoModal } = React.useContext(AppContext);
@@ -31,6 +37,7 @@ function CardMovie(props: Props) {
   const selectMovie = React.useCallback((movie: Movie) => {
     setIsOpenMoreInfoModal(true);
     setMovieSelected(movie);
+    setSearch({ ...search, movie: movie.id.toString() });
   }, [movie]);
 
   return (

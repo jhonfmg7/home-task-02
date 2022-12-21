@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
 import styles from "../../../css-modules/main.module.css";
 
 // Actions
@@ -22,22 +23,30 @@ function NavBar() {
   // Dispatch Instance
   const dispatch = useDispatch<AppDispatch>();
 
+  // URL Extraction
+  const [searchParams, setSearchParams] = useSearchParams();
+
   // Redux State Extraction
   const { typeSelected, sortBySelected } = useSelector<RootState, State>((state) => state.movies);
 
-  const changeItemSelected = (type: string) => dispatch(setTypeSelectedAction(type));
+  React.useEffect(() => {
+    const searchParamsGenre = searchParams.get("genre");
+    const searchParamsSortBy = searchParams.get("sortBy");
+    dispatch(setTypeSelectedAction(searchParamsGenre));
+    dispatch(setSortBySelectedAction(searchParamsSortBy));
+  }, [searchParams]);
 
   return (
     <nav className={styles.navbar}>
       <ul className={styles.navbarItems}>
         { CATEGORIES.map((category, index) => (
-          <li key={index} className={typeSelected === category ? styles.navbarItemActive : styles.navbarItem} onClick={() => changeItemSelected(category)}>{ camelCase(category) }</li>
+          <li key={index} className={searchParams.get("genre") === category ? styles.navbarItemActive : styles.navbarItem} onClick={() => setSearchParams({ genre: category, sortBy: sortBySelected })}>{ camelCase(category) }</li>
         )) }
       </ul>
       <div className={styles.sortBySelect}>
         <p className={styles.secondaryText}>Sort by</p>
         <div className={styles.selectContainer}>
-          <select className={styles.selectInput} value={sortBySelected} onChange={e => dispatch(setSortBySelectedAction(e.target.value))}>
+          <select className={styles.selectInput} value={searchParams.get("sortBy")} onChange={(e) => setSearchParams({ genre: typeSelected, sortBy: e.target.value })}>
             <option value="release_date">Release Date</option>
             <option value="vote_average">Rating</option>
             <option value="runtime">Runtime</option>

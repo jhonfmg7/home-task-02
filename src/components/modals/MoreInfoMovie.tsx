@@ -11,13 +11,23 @@ import Logo from "../logo";
 // Utils
 import timeConverter from "../../utils/timeConverter";
 
+// Hooks
+import useCustomSearchParams from "../../hooks/useCustomSearchParams";
+
 interface Props {
     movie?: Movie,
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const MoreInfoMovie: React.FC<Props> = ({ movie, setIsOpen }) => {
-  const handleClose = () => setIsOpen(false);
+  // URL extraction
+  const [search, setSearch] = useCustomSearchParams();
+
+  const handleClose = () => {
+    const {genre, sortBy} = search;
+    setIsOpen(false);
+    setSearch({ genre, sortBy });
+  };
 
   React.useEffect(() => {
     const element = document.querySelector("#header");

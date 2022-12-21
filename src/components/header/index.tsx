@@ -1,5 +1,9 @@
 import * as React from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import styles from "../../css-modules/header.module.css";
+
+// constants
+import { OPTIONS } from "../../constants";
 
 // Context
 import AppContext from "../../context/AppContext";
@@ -14,12 +18,23 @@ import MoreInfoMovie from "../modals/MoreInfoMovie";
 import useThrowError from "../../hooks/useThrowError";
 
 function Header() {
+  // Navigate Instance
+  const navigate = useNavigate();
+
+  // URL Extraction
+  const { searchQuery } = useParams();
+
   // Context Extraction
   const { movieSelected, isOpenMoreInfoModal, setIsOpenMoreInfoModal } = React.useContext(AppContext);
 
   // Local State
-  const [inputValue, setInputValue] = React.useState("");
+  const [inputValue, setInputValue] = React.useState(searchQuery || "");
   const [isOpenModal, setIsOpenModal] = React.useState(false);
+
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (inputValue !== "") navigate(`/search/${inputValue}?genre=${OPTIONS[0]}&sortBy=release_date`);
+  };
 
   useThrowError();
 
@@ -32,9 +47,9 @@ function Header() {
         <MoreInfoMovie movie={movieSelected} setIsOpen={setIsOpenMoreInfoModal} />
       ) }
       <div className={styles.container}>
-        <a href="#" className={styles.noTextDecoration}>
+        <Link to="/" className={styles.noTextDecoration}>
           <Logo />
-        </a>
+        </Link>
         <button className={styles.mainButton} onClick={() => setIsOpenModal((prevState) => !prevState)}>
           <span>+ </span>
           ADD MOVIE
@@ -42,12 +57,12 @@ function Header() {
       </div>
       <div className={styles.finder}>
         <h1 className={styles.mainTitle}>FIND YOUR MOVIE</h1>
-        <div className={styles.secondaryContainer}>
+        <form onSubmit={handleSearch} className={styles.secondaryContainer}>
           <ErrorBoundary>
             <input className={styles.searchInput} type="text" placeholder="What do you want to watch?" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
           </ErrorBoundary>
-          <button className={styles.secondaryButton}>Search</button>
-        </div>
+          <button className={styles.secondaryButton} disabled={!inputValue} type="submit">Search</button>
+        </form>
       </div>
     </header>
   );

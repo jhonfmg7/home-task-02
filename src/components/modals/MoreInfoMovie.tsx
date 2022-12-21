@@ -24,8 +24,9 @@ const MoreInfoMovie: React.FC<Props> = ({ movie, setIsOpen }) => {
   const [search, setSearch] = useCustomSearchParams();
 
   const handleClose = () => {
+    const {genre, sortBy} = search;
     setIsOpen(false);
-    setSearch({ genre: search.genre, sortBy: search.sortBy });
+    setSearch({ genre, sortBy });
   };
 
   React.useEffect(() => {

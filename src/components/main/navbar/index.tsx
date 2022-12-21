@@ -30,8 +30,10 @@ function NavBar() {
   const { typeSelected, sortBySelected } = useSelector<RootState, State>((state) => state.movies);
 
   React.useEffect(() => {
-    dispatch(setTypeSelectedAction(searchParams.get("genre")));
-    dispatch(setSortBySelectedAction(searchParams.get("sortBy")));
+    const searchParamsGenre = searchParams.get("genre");
+    const searchParamsSortBy = searchParams.get("sortBy");
+    dispatch(setTypeSelectedAction(searchParamsGenre));
+    dispatch(setSortBySelectedAction(searchParamsSortBy));
   }, [searchParams]);
 
   return (

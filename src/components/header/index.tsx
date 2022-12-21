@@ -2,6 +2,9 @@ import * as React from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import styles from "../../css-modules/header.module.css";
 
+// constants
+import { OPTIONS } from "../../constants";
+
 // Context
 import AppContext from "../../context/AppContext";
 
@@ -30,7 +33,7 @@ function Header() {
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (inputValue !== "") navigate(`/search/${inputValue}?genre=all&sortBy=release_date`);
+    if (inputValue !== "") navigate(`/search/${inputValue}?genre=${OPTIONS[0]}&sortBy=release_date`);
   };
 
   useThrowError();
@@ -58,7 +61,7 @@ function Header() {
           <ErrorBoundary>
             <input className={styles.searchInput} type="text" placeholder="What do you want to watch?" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
           </ErrorBoundary>
-          <button className={styles.secondaryButton} disabled={inputValue === ""} type="submit">Search</button>
+          <button className={styles.secondaryButton} disabled={!inputValue} type="submit">Search</button>
         </form>
       </div>
     </header>

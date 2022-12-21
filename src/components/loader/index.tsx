@@ -3,7 +3,7 @@ import styles from "../../css-modules/loader.module.css";
 
 function Loader() {
   return (
-    <div className={styles.spinner} />
+    <div className={styles.spinner} data-testid="loader" />
   );
 }
 

@@ -1,14 +1,8 @@
 import * as React from 'react';
 import { Provider } from 'react-redux';
 
-// Interface
-import Movie from './types/movie.interface';
-
 // Store
 import store from './redux/store';
-
-// Context
-import AppContext from './context/AppContext';
 
 // Components
 import Header from './components/header';
@@ -18,21 +12,15 @@ import ErrorBoundary from './components/ErrorBoundary';
 import Messages from './components/Messages';
 
 function App() {
-  // Local State
-  const [movieSelected, setMovieSelected] = React.useState<Movie | null>(null);
-  const [isOpenMoreInfoModal, setIsOpenMoreInfoModal] = React.useState(false);
-
   return (
     <Provider store={ store }>
       <div className="App" data-testid="app">
-          <ErrorBoundary>
-              <AppContext.Provider value={{ movieSelected, setMovieSelected, isOpenMoreInfoModal, setIsOpenMoreInfoModal }}>
-                <Header />
-                <Main />
-                <Footer />
-                <Messages />
-              </AppContext.Provider>
-          </ErrorBoundary>
+        <ErrorBoundary>
+          <Header />
+          <Main />
+          <Footer />
+          <Messages />
+        </ErrorBoundary>
       </div>
     </Provider>
   );

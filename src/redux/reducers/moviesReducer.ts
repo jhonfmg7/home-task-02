@@ -1,9 +1,11 @@
 import Movie from "../../types/movie.interface";
-import { CLEAR_MESSAGES, CREATE_MOVIE_ERROR, CREATE_MOVIE_START, CREATE_MOVIE_SUCCESS, DELETE_MOVIE_ERROR, DELETE_MOVIE_START, DELETE_MOVIE_SUCCESS, EDIT_MOVIE_ERROR, EDIT_MOVIE_START, EDIT_MOVIE_SUCCESS, GET_MOVIES_ERROR, GET_MOVIES_START, GET_MOVIES_SUCCESS, SET_RELOAD, SET_SORTBY_SELECTED, SET_TYPE_SELECTED } from "../types";
+import { CHANGE_STATE_MORE_INFO_MODAL, CLEAR_MESSAGES, CREATE_MOVIE_ERROR, CREATE_MOVIE_START, CREATE_MOVIE_SUCCESS, DELETE_MOVIE_ERROR, DELETE_MOVIE_START, DELETE_MOVIE_SUCCESS, EDIT_MOVIE_ERROR, EDIT_MOVIE_START, EDIT_MOVIE_SUCCESS, GET_MOVIES_ERROR, GET_MOVIES_START, GET_MOVIES_SUCCESS, SET_MOVIE_SELECTED, SET_RELOAD, SET_SORTBY_SELECTED, SET_TYPE_SELECTED } from "../types";
 
 interface InitialState {
     movies: Movie[],
     moviesQuantity: number,
+    movieSelected: Movie | null,
+    isOpenMoreInfoModal: boolean,
     reload: boolean,
     typeSelected: string,
     sortBySelected: string,
@@ -17,6 +19,8 @@ interface InitialState {
 interface Payload {
     movies: Movie[],
     quantity: number,
+    movie: Movie,
+    state: boolean,
     message: string,
     error: string | null,
     reload: boolean,
@@ -32,6 +36,8 @@ interface Action {
 const initialState: InitialState = {
     movies: [],
     moviesQuantity: 0,
+    movieSelected: null,
+    isOpenMoreInfoModal: false,
     reload: true,
     typeSelected: "all",
     sortBySelected: "release_date",
@@ -48,6 +54,16 @@ export default (state = initialState, action: Action) => {
             return {
                 ...state,
                 reload: action.payload.reload
+            }
+        case SET_MOVIE_SELECTED:
+            return {
+                ...state,
+                movieSelected: action.payload.movie
+            }
+        case CHANGE_STATE_MORE_INFO_MODAL: 
+            return {
+                ...state,
+                isOpenMoreInfoModal: action.payload.state
             }
         case SET_TYPE_SELECTED:
             return {

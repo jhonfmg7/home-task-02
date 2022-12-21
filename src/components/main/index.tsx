@@ -39,7 +39,7 @@ function Main() {
 
   React.useEffect(() => {
     if (reload) {
-        dispatch(getAllMoviesByGenreAction(NUM_PAGE, sortBySelected, typeSelected));
+      dispatch(getAllMoviesByGenreAction(NUM_PAGE, sortBySelected, typeSelected));
     }
   }, [typeSelected, sortBySelected, reload]);
 

@@ -2,9 +2,9 @@ import * as React from "react";
 import styles from "../../../css-modules/modal.module.css";
 
 // Interface
-import Input from "../../../types/input.interface";
+import InputInterface from "../../../types/input.interface";
 
-function Input(props: Input) {
+function Input(props: InputInterface) {
   // Props Extraction
   const {
     isLarge, id, title, info, value, type, placeholder, errors, touched, handleChange, handleBlur,

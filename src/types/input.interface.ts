@@ -3,7 +3,7 @@ import { FormikErrors, FormikTouched } from "formik";
 // Interface
 import Movie from "./movie.interface";
 
-interface Input {
+interface InputInterface {
     isLarge?: boolean,
     id: string,
     title: string,
@@ -17,4 +17,4 @@ interface Input {
     handleBlur: React.FocusEventHandler<HTMLInputElement | HTMLSelectElement>
 }
 
-export default Input;
+export default InputInterface;

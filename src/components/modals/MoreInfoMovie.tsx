@@ -13,11 +13,11 @@ import timeConverter from "../../utils/timeConverter";
 
 interface Props {
     movie?: Movie,
-    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+    setIsOpen: any
 }
 
 const MoreInfoMovie: React.FC<Props> = ({ movie, setIsOpen }) => {
-  const handleClose = () => setIsOpen(false);
+  const handleClose = () => setIsOpen();
 
   React.useEffect(() => {
     const element = document.querySelector("#header");
@@ -25,13 +25,13 @@ const MoreInfoMovie: React.FC<Props> = ({ movie, setIsOpen }) => {
   }, []);
 
   return (
-    <div className={styles.modalAlternative}>
+    <div className={styles.modalAlternative} data-testid="more_info_movie_modal">
       <div className={stylesHeader.container}>
         <a href="#" className={stylesHeader.noTextDecoration}>
           <Logo />
         </a>
         <div className={styles.closeIcon}>
-          <h2 className={styles.iconAlternative} onClick={handleClose}>
+          <h2 className={styles.iconAlternative} onClick={handleClose} data-testid="more_info_movie_close_button">
             <span className="material-symbols-outlined">
               search
             </span>

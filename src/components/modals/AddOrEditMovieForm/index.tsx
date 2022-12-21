@@ -75,7 +75,7 @@ function AddOrEditForm(props: Props) {
         handleChange,
         handleSubmit,
       }) => (
-        <form className={styles.form} onSubmit={handleSubmit}>
+        <form className={styles.form} onSubmit={handleSubmit} data-testid="add_or_edit_form">
           <Input isLarge id="title" title="Title" info={values} value="title" type="text" placeholder="Title" errors={errors} touched={touched} handleChange={handleChange} handleBlur={handleBlur} />
           <Input isLarge={false} id="date" title="Release Date" info={values} value="release_date" type="date" placeholder="Select Date" errors={errors} touched={touched} handleChange={handleChange} handleBlur={handleBlur} />
           <Input isLarge id="url" title="Movie URL Image" info={values} value="poster_path" type="text" placeholder="https://" errors={errors} touched={touched} handleChange={handleChange} handleBlur={handleBlur} />

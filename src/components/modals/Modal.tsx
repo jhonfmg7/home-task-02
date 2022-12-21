@@ -23,7 +23,7 @@ const Modal: React.FunctionComponent<React.PropsWithChildren<Props>> = (props: P
     <div className={styles.modalContainer} onClick={handleClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div className={styles.closeIcon}>
-          <h2 className={styles.icon} onClick={handleClose}>X</h2>
+          <h2 className={styles.icon} onClick={handleClose} data-testid="modal_close_button">X</h2>
         </div>
         <h2 className={styles.title}>
           { title }

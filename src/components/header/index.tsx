@@ -66,10 +66,10 @@ function Header() {
         <MoreInfoMovie movie={movieSelected} setIsOpen={handleClose} />
       ) }
       <div className={styles.container}>
-        <Link to="/" className={styles.noTextDecoration}>
+        <Link to="/" className={styles.noTextDecoration} data-testid="home_link">
           <Logo />
         </Link>
-        <button className={styles.mainButton} data-testid="add_movie_button" onClick={() => setIsOpenModal((prevState) => !prevState)}>
+        <button className={styles.mainButton} data-testid="add_movie_button" data-cy="add_movie_button" onClick={() => setIsOpenModal((prevState) => !prevState)}>
           <span>+ </span>
           ADD MOVIE
         </button>

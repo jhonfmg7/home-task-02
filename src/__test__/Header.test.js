@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { cleanup, fireEvent, render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
@@ -9,7 +10,6 @@ import store from '../redux/store';
 // Components
 import App from '../App';
 import Header from '../components/header';
-import { BrowserRouter, Router } from 'react-router-dom';
 
 afterEach( cleanup );
 
@@ -47,8 +47,19 @@ test('<Header /> validate Headers UI and searching functionality', () => {
     expect( headerSearchButton ).toBeInTheDocument();
     expect( headerSearchButton.tagName ).toBe('BUTTON');
 
+    let searchParam = window.location.pathname.split('/')[2]
+    expect( searchParam ).toBe(undefined);
+    expect( searchParam ).not.toBe('whatever%20you%20would%20like%20to%20search');
     fireEvent.change(headerSearchInput, { target: { value: 'whatever you would like to search' } });
     expect( headerSearchInput.value ).toBe('whatever you would like to search');
+    
+    fireEvent.click(headerSearchButton);
+    searchParam = window.location.pathname.split('/')[2]
+    expect( searchParam ).toBe('whatever%20you%20would%20like%20to%20search');
+
+    const params = new URLSearchParams(window.location.search);
+    expect( params.get('genre') ).toBe('all');
+    expect( params.get('sortBy') ).toBe('release_date');
 });
 
 test('<Header /> validate the modals are closed when the page load and exist when clicking in the regarding button', async() => {

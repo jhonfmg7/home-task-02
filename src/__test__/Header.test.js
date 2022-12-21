@@ -9,6 +9,7 @@ import store from '../redux/store';
 // Components
 import App from '../App';
 import Header from '../components/header';
+import { BrowserRouter, Router } from 'react-router-dom';
 
 afterEach( cleanup );
 
@@ -23,7 +24,9 @@ test('<Header /> validate UI and searching functionality in the header', () => {
 test('<Header /> validate Headers UI and searching functionality', () => {
     const { getByTestId } = render(
         <Provider store={store}>
-            <Header />
+            <BrowserRouter>
+                <Header />
+            </BrowserRouter>
         </Provider>
     );
 
@@ -51,7 +54,9 @@ test('<Header /> validate Headers UI and searching functionality', () => {
 test('<Header /> validate the modals are closed when the page load and exist when clicking in the regarding button', async() => {
     const { queryByTestId, getByTestId, findAllByTestId } = render(
         <Provider store={store}>
-            <App />
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
         </Provider>
     );
 

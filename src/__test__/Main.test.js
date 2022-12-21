@@ -8,13 +8,16 @@ import store from '../redux/store';
 
 // components
 import Main from '../components/main';
+import { BrowserRouter } from 'react-router-dom';
 
 afterEach( cleanup );
 
 test('<Main /> validate UI and movies showed at main section', () => {
     const { getByTestId } = render(
         <Provider store={ store }>
-            <Main />
+            <BrowserRouter>
+                <Main />
+            </BrowserRouter>
         </Provider>
     );
     
@@ -26,7 +29,9 @@ test('<Main /> validate UI and movies showed at main section', () => {
 test('<Main /> validate each card movie exists and is successful showed', async() => {
     const { findAllByTestId, queryAllByTestId } = render(
         <Provider store={store}>
-            <Main />
+            <BrowserRouter>
+                <Main />
+            </BrowserRouter>
         </Provider>
     );
 

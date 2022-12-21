@@ -9,9 +9,6 @@ import { AppDispatch, RootState } from "../../types/redux.interface";
 // Actions
 import { getAllMoviesByGenreAction } from "../../redux/actions/moviesAction";
 
-// Constantes
-import { OPTIONS } from "../../constants";
-
 // Components
 import NavBar from "./navbar";
 import ListMovies from "./ListMovies";

@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import { act } from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
-import { cleanup, fireEvent, render } from '@testing-library/react';
+import { cleanup, fireEvent, render, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 
 // Store
@@ -10,6 +11,9 @@ import store from '../redux/store';
 // components
 import App from '../App';
 import Main from '../components/main';
+
+// Utils
+import camelCase from '../utils/camelCase';
 
 afterEach( cleanup );
 
@@ -41,26 +45,67 @@ test('<Navbar /> validate when change genre or sortby successful', () => {
     fireEvent.click( homeLink, { button: 0 } );
 
     let params = new URLSearchParams(window.location.search);
-    // expect( params.get('genre') ).toBe('all');
-    // expect( params.get('sortBy') ).toBe('release_date');
 
     // Genres
     const genreOptionAll = getByTestId('genre_option_all');
     expect( genreOptionAll ).toBeInTheDocument();
     expect( genreOptionAll.textContent ).toBe('All');
 
+    fireEvent.click(genreOptionAll);
+    params = new URLSearchParams(window.location.search);
+    expect( camelCase(params.get('genre')) ).toBe(genreOptionAll.textContent);
+
     const genreOptionAction = getByTestId('genre_option_action');
+    expect( genreOptionAction ).toBeInTheDocument();
+    expect( genreOptionAction.textContent ).toBe('Action');
+
+    fireEvent.click(genreOptionAction);
+    params = new URLSearchParams(window.location.search);
+    expect( camelCase(params.get('genre')) ).toBe(genreOptionAction.textContent);
+
     const genreOptionDocumentary = getByTestId('genre_option_documentary');
+    expect( genreOptionDocumentary ).toBeInTheDocument();
+    expect( genreOptionDocumentary.textContent ).toBe('Documentary');
+
+    fireEvent.click(genreOptionDocumentary);
+    params = new URLSearchParams(window.location.search);
+    expect( camelCase(params.get('genre')) ).toBe(genreOptionDocumentary.textContent);
+
     const genreOptionComedy = getByTestId('genre_option_comedy');
+    expect( genreOptionComedy ).toBeInTheDocument();
+    expect( genreOptionComedy.textContent ).toBe('Comedy');
+
+    fireEvent.click(genreOptionComedy);
+    params = new URLSearchParams(window.location.search);
+    expect( camelCase(params.get('genre')) ).toBe(genreOptionComedy.textContent);
+
     const genreOptionHorror = getByTestId('genre_option_horror');
+    expect( genreOptionHorror ).toBeInTheDocument();
+    expect( genreOptionHorror.textContent ).toBe('Horror');
+
+    fireEvent.click(genreOptionHorror);
+    params = new URLSearchParams(window.location.search);
+    expect( camelCase(params.get('genre')) ).toBe(genreOptionHorror.textContent);
+
     const genreOptionCrime = getByTestId('genre_option_crime');
-    
+    expect( genreOptionCrime ).toBeInTheDocument();
+    expect( genreOptionCrime.textContent ).toBe('Crime');
+
+    fireEvent.click(genreOptionCrime);
+    params = new URLSearchParams(window.location.search);
+    expect( camelCase(params.get('genre')) ).toBe(genreOptionCrime.textContent);
+
     // SortBy
     const sortBySelect = getByTestId('sortby_select');
     expect( sortBySelect ).toBeInTheDocument();
+
+    fireEvent.change(sortBySelect, { target: { value: 'release_date' } });
     expect( sortBySelect.value ).toBe('release_date');
     expect( sortBySelect.value ).not.toBe('vote_average');
     expect( sortBySelect.value ).not.toBe('runtime');
+
+    params = new URLSearchParams(window.location.search);
+    expect( params.get('sortBy') ).toBe('release_date');
 
     fireEvent.change(sortBySelect, { target: { value: 'vote_average' } });
     expect( sortBySelect.value ).toBe('vote_average');
@@ -77,9 +122,7 @@ test('<Navbar /> validate when change genre or sortby successful', () => {
 
     params = new URLSearchParams(window.location.search);
     expect( params.get('sortBy') ).toBe('runtime');
-
-
-})
+});
 
 test('<Main /> validate each card movie exists and is successful showed', async() => {
     const { findAllByTestId, queryAllByTestId } = render(
@@ -112,6 +155,11 @@ test('<Main /> validate each card movie exists and is successful showed', async(
     expect( movieMenuCloseButtonTwo.length ).toBe(1);
     expect( movieMenuCloseButtonTwo[0].textContent ).toBe('x');
     expect( movieMenuCloseButtonTwo[0].tagName ).toBe('H2');
+
+    // Close and open again movie menu
+    fireEvent.click( movieMenuCloseButtonTwo[0] );
+    expect( movieMenu.length ).not.toBe(1);
+    fireEvent.click( movieMenuButton[0] );
 
     // Delete Modal Open
     const deleteModal = await queryAllByTestId('delete_modal');
@@ -155,4 +203,55 @@ test('<Main /> validate each card movie exists and is successful showed', async(
     expect( movieMenu.length ).not.toBe(1);
     expect( movieMenuTwo[0] ).toMatchObject({});
 });
+
+test('<AddOrEditForm /> validate reset form funcionality', async() => {
+    const { getByTestId, findAllByTestId, queryByTestId } = render(
+        <Provider store={store}>
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
+        </Provider>
+    );
+
+    const addMovieButton = getByTestId('add_movie_button');
+    fireEvent.click(addMovieButton);
+
+    const resetFormMovieButton = getByTestId('new_movie_reset_form_button');
+    expect( resetFormMovieButton ).toBeInTheDocument();
+
+    const newMovieInputTitle = getByTestId('new_movie_input_title');
+    expect( newMovieInputTitle ).toBeInTheDocument();
+    expect( newMovieInputTitle.value ).toBe('');
+    
+    const newMovieSelectGenre = getByTestId('new_movie_input_genres');
+    expect( newMovieSelectGenre ).toBeInTheDocument();
+    expect( newMovieSelectGenre.value ).toBe('');
+    expect( newMovieSelectGenre.className ).toBe('modal-module__input___3hdhz');
+    
+    // Validate Class of inputs not error
+    expect( newMovieInputTitle.className ).toBe('modal-module__input___3hdhz');
+    const newMovieSubmitButton = getByTestId('new_movie_submit_button');
+
+    expect( newMovieSubmitButton ).toBeInTheDocument();
+    await act(() => {
+        fireEvent.click(newMovieSubmitButton);
+    });
+
+    // Validate Class of inputs error
+    expect( newMovieInputTitle.className ).toBe('modal-module__inputWithError___3zQMu');
+    expect( newMovieInputTitle.className ).not.toBe('modal-module__input___3hdhz');
+    expect( newMovieSelectGenre.className ).toBe('modal-module__inputWithError___3zQMu');
+    expect( newMovieSelectGenre.className ).not.toBe('modal-module__input___3hdhz');
+
+    await act(() => {
+        fireEvent.change(newMovieInputTitle, { target: { value: 'Testing title' } })
+    });
+    expect( newMovieInputTitle.value ).toBe('Testing title');
+
+    // Reset form
+    await act(() => {
+        fireEvent.click(resetFormMovieButton);
+    });
+    expect( newMovieInputTitle.value ).toBe('');
+})
 

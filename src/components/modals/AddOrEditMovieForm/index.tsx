@@ -84,12 +84,12 @@ function AddOrEditForm(props: Props) {
           <Input isLarge={false} id="runtime" title="Runtime" info={values} value="runtime" type="number" placeholder="minutes" errors={errors} touched={touched} handleChange={handleChange} handleBlur={handleBlur} />
           <div className={styles.inputGroupExtraLarge}>
             <label htmlFor="overview" className={styles.label}>Overview</label>
-            <textarea id="overview" cols={30} rows={10} name="overview" placeholder="Movie Description" className={errors.overview && touched.overview ? styles.inputWithError : styles.input} value={values.overview} onChange={handleChange} />
+            <textarea id="overview" data-cy="new_movie_input_overview" cols={30} rows={10} name="overview" placeholder="Movie Description" className={errors.overview && touched.overview ? styles.inputWithError : styles.input} value={values.overview} onChange={handleChange} />
             <p className={styles.errorInput}>{touched.overview && errors.overview}</p>
           </div>
           <div className={styles.textEnd}>
-            <button className={styles.secondaryButton} type="button" onClick={() => handleReset(setValues)}>Reset</button>
-            <button className={stylesHeader.secondaryButton} type="submit">Submit</button>
+            <button className={styles.secondaryButton} type="button" data-testid="new_movie_reset_form_button" onClick={() => handleReset(setValues)}>Reset</button>
+            <button className={stylesHeader.secondaryButton} type="submit" data-testid="new_movie_submit_button" data-cy="new_movie_submit_button">Submit</button>
           </div>
         </form>
       )}

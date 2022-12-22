@@ -15,6 +15,8 @@ function Input(props: InputInterface) {
       <label htmlFor={id} className={styles.label}>{ title }</label>
       <input
         id={id}
+        data-testid={`new_movie_input_${value}`}
+        data-cy={`new_movie_input_${value}`}
         name={value}
         type={type}
         placeholder={placeholder}
@@ -23,7 +25,9 @@ function Input(props: InputInterface) {
         onChange={handleChange}
         onBlur={handleBlur}
       />
-      <p className={styles.errorInput}>{errors[value] && touched[value] && errors[value]}</p>
+      {errors[value] && (
+        <p className={styles.errorInput} data-cy="new_movie_error">{errors[value] && touched[value] && errors[value]}</p>
+      )}
     </div>
   );
 }

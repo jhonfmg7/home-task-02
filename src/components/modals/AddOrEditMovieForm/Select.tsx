@@ -20,6 +20,8 @@ function Select(props: Input) {
       <label htmlFor={id} className={styles.label}>{ title }</label>
       <select
         id={id}
+        data-testid={`new_movie_input_${value}`}
+        data-cy={`new_movie_input_${value}`}
         name={value}
         value={info[value]}
         className={errors[value] && touched[value] ? styles.inputWithError : styles.input}

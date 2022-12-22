@@ -19,7 +19,7 @@ function MovieMenu(props: Props) {
       </div>
       <ul className={styles.menuItems} data-testid="movie_menu_buttons_container">
         <li className={styles.menuItem} onClick={() => setIsOpenEditModal(true)} data-testid="edit_modal_button">Edit</li>
-        <li className={styles.menuItem} onClick={() => setIsOpenDeleteModal(true)} data-testid="delete_modal_button">Delete</li>
+        <li className={styles.menuItem} onClick={() => setIsOpenDeleteModal(true)} data-testid="delete_modal_button" data-cy="delete_modal_button">Delete</li>
       </ul>
     </div>
   );

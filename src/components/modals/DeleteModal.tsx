@@ -36,7 +36,7 @@ const DeleteModal: React.FC<Props> = ({
       <div data-testid="delete_modal">
         <p className={styles.deleteMessage} data-testid="delete_modal_title">Are you sure you want to delete this movie?</p>
         <div className={styles.textEnd}>
-          <button className={stylesHeader.secondaryButton} type="button" data-testid="delete_modal_confirm_button" onClick={handleDelete}>Confirm</button>
+          <button className={stylesHeader.secondaryButton} type="button" data-testid="delete_modal_confirm_button" data-cy="delete_modal_confirm_button" onClick={handleDelete}>Confirm</button>
         </div>
       </div>
     </Modal>

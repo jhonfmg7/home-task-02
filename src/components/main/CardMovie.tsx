@@ -57,14 +57,14 @@ function CardMovie(props: Props) {
       ) }
       <article className={styles.movieItem}>
         <div className={styles.menuContainer}>
-          <div className={styles.menuButton} onClick={() => setIsOpenMenu((prevState) => !prevState)} data-testid="movie_menu_button">...</div>
+          <div className={styles.menuButton} onClick={() => setIsOpenMenu((prevState) => !prevState)} data-testid="movie_menu_button" data-cy="movie_menu_button">...</div>
           { isOpenMenu && (
             <MovieMenu setIsOpen={setIsOpenMenu} setIsOpenDeleteModal={setIsOpenDeleteModal} setIsOpenEditModal={setIsOpenEditModal} />
           ) }
         </div>
         <img src={movie.poster_path} alt={movie.title} className={styles.movieImage} onClick={() => selectMovie(movie)} data-testid="card_movie_image" />
         <div className={styles.titleContainer}>
-          <p className={styles.movieTitle}>{ movie.title }</p>
+          <p className={styles.movieTitle} data-cy="card_movie_title">{ movie.title }</p>
           <p className={styles.movieDate}>{ movie.release_date.split("-")[0] }</p>
         </div>
         <p className={styles.genres}>

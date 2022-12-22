@@ -15,12 +15,6 @@ afterEach( cleanup );
 
 window.HTMLElement.prototype.scrollIntoView = jest.fn()
 
-test('<Header /> validate UI and searching functionality in the header', () => {
-    // const reducer = reducers(initialState, changeStateMoreInfoModalAction());
-
-    // expect( reducer ).toMatchSnapshot();
-});
-
 test('<Header /> validate Headers UI and searching functionality', () => {
     const { getByTestId } = render(
         <Provider store={store}>

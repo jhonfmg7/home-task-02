@@ -11,12 +11,7 @@ module.exports = {
             template: "public/index.html", 
         }),
     ],
-    devServer: {
-        port: 3000, 
-        historyApiFallback: true,
-    },
     entry: './src/index.js',
-    devtool: 'inline-source-map',
     module: {
         rules: [
             {

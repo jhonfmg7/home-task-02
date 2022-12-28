@@ -15,9 +15,9 @@ function Messages() {
 
   return message
     ? (
-      <section className={styles.messageContainer}>
+      <section className={styles.messageContainer} data-cy="notification_element">
         <div className={styles.messageTitle}>Notification</div>
-        <h1 className={styles.message}>{ message }</h1>
+        <h1 className={styles.message} data-cy="notification_message">{ message }</h1>
       </section>
     )
     : null;

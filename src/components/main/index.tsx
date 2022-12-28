@@ -48,7 +48,7 @@ function Main() {
       ) : (
         <>
           <p className={styles.moviesQuantity}>
-            <span className={styles.moviesQuantityComplement}>{ moviesQuantity }</span>
+            <span className={styles.moviesQuantityComplement} data-cy="movies_quantity_number">{ moviesQuantity }</span>
             {" "}
             movies found
           </p>

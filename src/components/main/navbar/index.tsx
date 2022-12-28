@@ -40,13 +40,13 @@ function NavBar() {
     <nav className={styles.navbar}>
       <ul className={styles.navbarItems}>
         { CATEGORIES.map((category, index) => (
-          <li key={index} className={searchParams.get("genre") === category ? styles.navbarItemActive : styles.navbarItem} onClick={() => setSearchParams({ genre: category, sortBy: sortBySelected })}>{ camelCase(category) }</li>
+          <li key={index} data-testid={`genre_option_${category}`} className={searchParams.get("genre") === category ? styles.navbarItemActive : styles.navbarItem} onClick={() => setSearchParams({ genre: category, sortBy: sortBySelected })}>{ camelCase(category) }</li>
         )) }
       </ul>
       <div className={styles.sortBySelect}>
         <p className={styles.secondaryText}>Sort by</p>
         <div className={styles.selectContainer}>
-          <select className={styles.selectInput} value={searchParams.get("sortBy")} onChange={(e) => setSearchParams({ genre: typeSelected, sortBy: e.target.value })}>
+          <select className={styles.selectInput} value={searchParams.get("sortBy") ?? ""} data-testid="sortby_select" onChange={(e) => setSearchParams({ genre: typeSelected, sortBy: e.target.value })}>
             <option value="release_date">Release Date</option>
             <option value="vote_average">Rating</option>
             <option value="runtime">Runtime</option>

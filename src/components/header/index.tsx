@@ -1,12 +1,17 @@
 import * as React from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "../../css-modules/header.module.css";
+
+// Interface
+import Movie from "../../types/movie.interface";
+import { AppDispatch, RootState } from "../../types/redux.interface";
+
+// Actions
+import { changeStateMoreInfoModalAction } from "../../redux/actions/moviesAction";
 
 // constants
 import { OPTIONS } from "../../constants";
-
-// Context
-import AppContext from "../../context/AppContext";
 
 // Components
 import Logo from "../logo";
@@ -17,7 +22,15 @@ import MoreInfoMovie from "../modals/MoreInfoMovie";
 // Hooks
 import useThrowError from "../../hooks/useThrowError";
 
+interface State {
+  movieSelected: Movie,
+  isOpenMoreInfoModal: boolean
+}
+
 function Header() {
+  // Dispatch Instance
+  const dispatch = useDispatch<AppDispatch>();
+
   // Navigate Instance
   const navigate = useNavigate();
 
@@ -25,11 +38,17 @@ function Header() {
   const { searchQuery } = useParams();
 
   // Context Extraction
-  const { movieSelected, isOpenMoreInfoModal, setIsOpenMoreInfoModal } = React.useContext(AppContext);
+  const { movieSelected, isOpenMoreInfoModal } = useSelector<RootState, State>((state) => state.movies);
 
   // Local State
   const [inputValue, setInputValue] = React.useState(searchQuery || "");
   const [isOpenModal, setIsOpenModal] = React.useState(false);
+
+  // useThrowError();
+
+  const handleClose = () => {
+    dispatch(changeStateMoreInfoModalAction(false));
+  };
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -40,28 +59,28 @@ function Header() {
 
   return (
     <header id="header" className={styles.hero} style={{ backgroundImage: "url(/img/hero.svg)" }} data-testid="header">
-      { isOpenModal && (
+      { isOpenModal ? (
         <AddOrEditModal title="add" setIsOpen={setIsOpenModal} />
-      ) }
+      ) : null }
       { isOpenMoreInfoModal && (
-        <MoreInfoMovie movie={movieSelected} setIsOpen={setIsOpenMoreInfoModal} />
+        <MoreInfoMovie movie={movieSelected} setIsOpen={handleClose} />
       ) }
       <div className={styles.container}>
-        <Link to="/" className={styles.noTextDecoration}>
+        <Link to="/" className={styles.noTextDecoration} data-testid="home_link">
           <Logo />
         </Link>
-        <button className={styles.mainButton} onClick={() => setIsOpenModal((prevState) => !prevState)}>
+        <button className={styles.mainButton} data-testid="add_movie_button" data-cy="add_movie_button" onClick={() => setIsOpenModal((prevState) => !prevState)}>
           <span>+ </span>
           ADD MOVIE
         </button>
       </div>
       <div className={styles.finder}>
-        <h1 className={styles.mainTitle}>FIND YOUR MOVIE</h1>
+        <h1 className={styles.mainTitle} data-testid="header_title">FIND YOUR MOVIE</h1>
         <form onSubmit={handleSearch} className={styles.secondaryContainer}>
           <ErrorBoundary>
-            <input className={styles.searchInput} type="text" placeholder="What do you want to watch?" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
+            <input className={styles.searchInput} type="text" placeholder="What do you want to watch?" data-testid="header_search_input" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
           </ErrorBoundary>
-          <button className={styles.secondaryButton} disabled={!inputValue} type="submit">Search</button>
+          <button className={styles.secondaryButton} disabled={!inputValue} type="submit" data-testid="header_search_button">Search</button>
         </form>
       </div>
     </header>

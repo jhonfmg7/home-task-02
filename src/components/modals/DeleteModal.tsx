@@ -6,9 +6,11 @@ import stylesHeader from "../../css-modules/header.module.css";
 // Interface
 import { AppDispatch } from "../../types/redux.interface";
 
+// Actions
+import { deleteMovieAction } from "../../redux/actions/moviesAction";
+
 // Components
 import Modal from "./Modal";
-import { deleteMovieAction } from "../../redux/actions/moviesAction";
 
 interface Props {
     title: string,
@@ -31,9 +33,11 @@ const DeleteModal: React.FC<Props> = ({
 
   return (
     <Modal title={title} setIsOpen={setIsOpen} setIsOpenMenu={setIsOpenMenu}>
-      <p className={styles.deleteMessage}>Are you sure you want to delete this movie?</p>
-      <div className={styles.textEnd}>
-        <button className={stylesHeader.secondaryButton} type="button" onClick={handleDelete}>Confirm</button>
+      <div data-testid="delete_modal">
+        <p className={styles.deleteMessage} data-testid="delete_modal_title">Are you sure you want to delete this movie?</p>
+        <div className={styles.textEnd}>
+          <button className={stylesHeader.secondaryButton} type="button" data-testid="delete_modal_confirm_button" data-cy="delete_modal_confirm_button" onClick={handleDelete}>Confirm</button>
+        </div>
       </div>
     </Modal>
   );

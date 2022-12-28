@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Main /> validate redux reducer when you pass a empty type 1`] = `
+{
+  "deleteLoading": false,
+  "error": null,
+  "errorDelete": null,
+  "isOpenMoreInfoModal": false,
+  "loading": false,
+  "message": null,
+  "movieSelected": null,
+  "movies": [],
+  "moviesQuantity": 0,
+  "reload": true,
+  "sortBySelected": "release_date",
+  "typeSelected": "all",
+}
+`;

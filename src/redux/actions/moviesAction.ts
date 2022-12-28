@@ -1,4 +1,5 @@
-import { CLEAR_MESSAGES, CREATE_MOVIE_ERROR, CREATE_MOVIE_START, CREATE_MOVIE_SUCCESS, DELETE_MOVIE_ERROR, DELETE_MOVIE_START, DELETE_MOVIE_SUCCESS, EDIT_MOVIE_ERROR, EDIT_MOVIE_START, EDIT_MOVIE_SUCCESS, GET_MOVIES_ERROR, GET_MOVIES_START, GET_MOVIES_SUCCESS, SET_RELOAD, SET_SORTBY_SELECTED, SET_TYPE_SELECTED } from "../types";
+import fetch from 'cross-fetch';
+import { CHANGE_STATE_MORE_INFO_MODAL, CLEAR_MESSAGES, CREATE_MOVIE_ERROR, CREATE_MOVIE_START, CREATE_MOVIE_SUCCESS, DELETE_MOVIE_ERROR, DELETE_MOVIE_START, DELETE_MOVIE_SUCCESS, EDIT_MOVIE_ERROR, EDIT_MOVIE_START, EDIT_MOVIE_SUCCESS, GET_MOVIES_ERROR, GET_MOVIES_START, GET_MOVIES_SUCCESS, SET_MOVIE_SELECTED, SET_RELOAD, SET_SORTBY_SELECTED, SET_TYPE_SELECTED } from "../types";
 
 // Interface
 import Movie from "../../types/movie.interface";
@@ -14,14 +15,6 @@ interface RequestInterface {
     mode: RequestMode,
     cache: RequestCache,
     headers: Headers
-}
-
-interface Params {
-    limit: string, 
-    offset: string, 
-    sortBy: string, 
-    sortOrder: string,
-    filter?: string
 }
 
 const BACKEND_URL: string = "http://localhost:4000/movies";
@@ -53,7 +46,29 @@ export function launchReloadAction() {
 const setReload = (reload: boolean) => ({
     type: SET_RELOAD,
     payload: {reload}
-})
+});
+
+export function setMovieSelectedAction(movie: Movie) {
+    return (dispatch: AppDispatch) => {
+        dispatch(setMovieSelected(movie));
+    }
+}
+
+const setMovieSelected = (movie: Movie) => ({
+    type: SET_MOVIE_SELECTED,
+    payload: {movie}
+});
+
+export function changeStateMoreInfoModalAction(state: boolean) {
+    return (dispatch: AppDispatch) => {
+        dispatch(changeStateMoreInfoModal(state));
+    }
+}
+
+const changeStateMoreInfoModal = (state: boolean) => ({
+    type: CHANGE_STATE_MORE_INFO_MODAL,
+    payload: {state}
+});
 
 export function setTypeSelectedAction(type: string) {
     return (dispatch: AppDispatch) => {
@@ -84,9 +99,8 @@ export function getAllMoviesByGenreAction(numPage: string, sortBy: string, genre
             const params = { limit: MOVIES_PER_PAGE, offset: numPage, sortBy, sortOrder: SORT_ORDER }
             const paramsWithFilter = { limit: MOVIES_PER_PAGE, offset: numPage, sortBy, sortOrder: SORT_ORDER, filter: genre };
             const searchParams = new URLSearchParams(genre === OPTIONS[0] ? params : paramsWithFilter);
-            const response = await fetch(`${ BACKEND_URL }?${searchParams}`);
+            const response = await fetch(`${ BACKEND_URL }?${searchParams}`); 
             const data = await response.json();
-
             if (response.status === 200) {
                 dispatch(getAllMoviesSuccess(data.data, data.totalAmount));
             }

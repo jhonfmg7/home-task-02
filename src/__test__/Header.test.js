@@ -43,13 +43,13 @@ test('<Header /> validate Headers UI and searching functionality', () => {
 
     let searchParam = window.location.pathname.split('/')[2]
     expect( searchParam ).toBe(undefined);
-    expect( searchParam ).not.toBe('whatever%20you%20would%20like%20to%20search');
+    expect( searchParam ).not.toBe(encodeURIComponent('whatever you would like to search'));
     fireEvent.change(headerSearchInput, { target: { value: 'whatever you would like to search' } });
     expect( headerSearchInput.value ).toBe('whatever you would like to search');
     
     fireEvent.click(headerSearchButton);
     searchParam = window.location.pathname.split('/')[2]
-    expect( searchParam ).toBe('whatever%20you%20would%20like%20to%20search');
+    expect( searchParam ).toBe(encodeURIComponent('whatever you would like to search'));
 
     const params = new URLSearchParams(window.location.search);
     expect( params.get('genre') ).toBe('all');

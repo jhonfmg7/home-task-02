@@ -4,9 +4,7 @@ describe('proving CRUD functionalities for movies app', () => {
 
     cy.url()
       .should('contain', '/search')
-    cy.url()
       .should('contain', 'genre')
-    cy.url()
       .should('contain', 'sortBy')
   });
 

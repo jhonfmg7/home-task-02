@@ -46,7 +46,7 @@ function NavBar() {
       <div className={styles.sortBySelect}>
         <p className={styles.secondaryText}>Sort by</p>
         <div className={styles.selectContainer}>
-          <select className={styles.selectInput} value={searchParams.get("sortBy") ? searchParams.get("sortBy") : ""} data-testid="sortby_select" onChange={(e) => setSearchParams({ genre: typeSelected, sortBy: e.target.value })}>
+          <select className={styles.selectInput} value={searchParams.get("sortBy") ?? ""} data-testid="sortby_select" onChange={(e) => setSearchParams({ genre: typeSelected, sortBy: e.target.value })}>
             <option value="release_date">Release Date</option>
             <option value="vote_average">Rating</option>
             <option value="runtime">Runtime</option>

@@ -21,7 +21,7 @@ function Input(props: InputInterface) {
         type={type}
         placeholder={placeholder}
         className={errors[value] && touched[value] ? styles.inputWithError : styles.input}
-        value={info[value] ? info[value] : ""}
+        value={info[value] ?? ""}
         onChange={handleChange}
         onBlur={handleBlur}
       />

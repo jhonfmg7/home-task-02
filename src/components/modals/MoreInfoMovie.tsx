@@ -16,7 +16,7 @@ import useCustomSearchParams from "../../hooks/useCustomSearchParams";
 
 interface Props {
     movie?: Movie,
-    setIsOpen: any
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const MoreInfoMovie: React.FC<Props> = ({ movie, setIsOpen }) => {
